@@ -17,6 +17,7 @@ namespace chat2._0.ServiceLogicPackage
             if (name.Equals("")) return "*用户名为空";
             if (regExp.IsMatch(name)) return "*含有非法字符";
             if (name.Length > 15) return "*字符长度不能大于15";
+            if (name.Length <= 4) return "*字符长度不能小于4";
             if (!sendMessage.Namerechecking(name)) return "*该账号名已注册";
             return str;
         }
