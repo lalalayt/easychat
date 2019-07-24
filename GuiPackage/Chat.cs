@@ -28,6 +28,7 @@ namespace chat2._0
         ImageList sendButton = null;//发送按钮的图片样式
         private int receiveRemind = 1;//查询是否是好友的受影响行数
         public static string sendName;//获取发给当前用户
+        private int messageImageIndex = 0; //工具栏中的消息图标的索引
         //构造函数
         public chat(string userName)
         {
@@ -121,15 +122,42 @@ namespace chat2._0
         //添加在线列表（登录）
         public void addListBox(string s)
         {
-            listBox1.BeginInvoke(new Action(() =>
+            //拿出第一项单独判断
+            if (listBox1.Items.Count == 0)
             {
-                if (s == this.userName)
+                listBox1.BeginInvoke(new Action(() =>
                 {
-                    return;
+                    if (s == this.userName)
+                    {
+                        return;
+                    }
+                    listBox1.Items.Add(s);
+                    chatBuffer.Add(s, "");
+                }));
+            }
+            else
+            {
+                for (int i = 0; i < listBox1.Items.Count; i++)
+                {
+                    if (s == listBox1.Items[i].ToString())
+                    {
+                        break;
+                    }
+                    else if (i == listBox1.Items.Count - 1)
+                    {
+                        listBox1.BeginInvoke(new Action(() =>
+                        {
+                            if (s == this.userName)
+                            {
+                                return;
+                            }
+                            listBox1.Items.Add(s);
+                            chatBuffer.Add(s, "");
+                        }));
+                        break;
+                    }
                 }
-                listBox1.Items.Add(s);
-                chatBuffer.Add(s, "");
-            }));
+            }
         }
         //删除在线列表（登出）
         public void delListBox(string s)
@@ -525,10 +553,30 @@ namespace chat2._0
         {
             receiveRemind = int.Parse(s1);
             sendName = s2;
+        }
+
+        //添加好友消息，启动消息提醒定时器
+        private void tmAddFriend_Tick(object sender, EventArgs e)
+        {
             if (receiveRemind != 1)
             {
-                tmAddFriend.Start();
+                messageImageIndex = messageImageIndex == 0 ? 1 : 0;//实时获取系统消息图像索引
+                button1.Image = imageList1.Images[messageImageIndex];//工具栏中显示消息读取状态图像
+                button1.Enabled = true;
             }
+        }
+
+        //显示请求好友消息窗体
+        private void button1_Click(object sender, EventArgs e)
+        {
+            //tmAddFriend.Stop();//停止消息提醒定时器
+            receiveRemind = 1;
+            messageImageIndex = 0;//头像恢复正常
+            //显示正常的系统消息提醒图标
+            button1.Image = imageList1.Images[messageImageIndex];
+            button1.Enabled = false;
+            Remind frmRemind = new Remind();//创建系统消息窗体对象
+            frmRemind.Show();//显示系统消息窗体
         }
     }
 }
