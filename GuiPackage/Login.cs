@@ -139,6 +139,7 @@ namespace chat2._0
             //登录成功
             else if (receiveData[1] == "SUCCESS")
             {
+                dataProcessing.loginName = textBox1.Text.Trim();//设置登录的用户名字
                 this.Visible = false;
                 beginChat = new chat(textBox1.Text.Trim());
                 beginChat.Visible = true;

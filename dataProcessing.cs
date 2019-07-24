@@ -7,6 +7,9 @@ using System.Net;
 using System.Net.Sockets;
 using System.Threading;
 using System.Windows.Forms;
+using chat2._0.GuiPackage;
+using System.Data;
+using System.IO;
 
 //处理传输的数据(包括发送与接收)
 namespace chat2._0
@@ -18,9 +21,13 @@ namespace chat2._0
         //服务器地址
         private static IPAddress IP = IPAddress.Parse("127.0.0.1");//服务器地址
         private static int port = 8081;//服务器端口号
+        private static AddFriends myFriend = null;//提供一些公共方法
         private static chat myChat = null;//提供一些公共方法
         private static login myLogin = null;
+        public static string loginName;//记录登录用户Name
         //窗口初始化时初始化该静态成员
+        public static void setFriend(AddFriends f)
+        { myFriend = f; }
         public static void setChat(chat s)
         {myChat = s;}
         public static void setlogin(login l)
@@ -69,6 +76,18 @@ namespace chat2._0
                 case 6:
                     myChat.addText("公共聊天室",data[1]+"已登录");
                     myChat.addListBox(data[1]);
+                    break;
+                case 7:
+                    sendData = num.ToString() + "$" + data[0] + "$";
+                    break;
+                case 8:
+                    sendData = num.ToString() + "$" + data[0] + "$";
+                    break;
+                case 10:
+                    sendData = num.ToString() + "$" + data[0] + "$";
+                    break;
+                case 9:
+                    sendData = num.ToString() + "$" + data[0] + "$" + data[1] + "$";
                     break;
                 case 404:
                     sendData = "404$";
@@ -144,6 +163,18 @@ namespace chat2._0
                 case "6":
                     myChat.delListBox(data[1]);
                     break;
+                case "7":
+                    myFriend.getUser(data[1]);
+                    break;
+                case "8":
+                    myFriend.getUser2(data[1]);
+                    break;
+                case "9":
+                    myFriend.row(data[1]);
+                    break;
+                case "11":
+                    myChat.row(data[1], data[2]);
+                    break;
                 case "404":
                     sendData(404, null);
                     myChat.showMessageBox("您已被强制下线");
@@ -207,6 +238,19 @@ namespace chat2._0
                     return;//404
                 }
             }
+        }
+
+        /// <summary>
+        /// String转DataSet
+        /// </summary>
+        /// <param name="str"></param>
+        /// <returns></returns>
+        public static DataSet StringToDataSet(string str)
+        {
+            StringReader sr = new StringReader(str);
+            DataSet ds = new DataSet();
+            ds.ReadXml(sr);
+            return ds;
         }
     }
 }

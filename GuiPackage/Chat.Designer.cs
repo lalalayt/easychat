@@ -57,6 +57,8 @@
             this.蓝色ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.粉色ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.版本信息ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.add_Friend = new System.Windows.Forms.ToolStripMenuItem();
+            this.tmAddFriend = new System.Windows.Forms.Timer(this.components);
             this.panel1.SuspendLayout();
             this.panel3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
@@ -326,9 +328,10 @@
             this.Cms_setting.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.账号设置ToolStripMenuItem,
             this.皮肤ToolStripMenuItem,
-            this.版本信息ToolStripMenuItem});
+            this.版本信息ToolStripMenuItem,
+            this.add_Friend});
             this.Cms_setting.Name = "Cms_setting";
-            this.Cms_setting.Size = new System.Drawing.Size(125, 70);
+            this.Cms_setting.Size = new System.Drawing.Size(125, 92);
             // 
             // 账号设置ToolStripMenuItem
             // 
@@ -373,6 +376,17 @@
             this.版本信息ToolStripMenuItem.Name = "版本信息ToolStripMenuItem";
             this.版本信息ToolStripMenuItem.Size = new System.Drawing.Size(124, 22);
             this.版本信息ToolStripMenuItem.Text = "版本信息";
+            // 
+            // add_Friend
+            // 
+            this.add_Friend.Name = "add_Friend";
+            this.add_Friend.Size = new System.Drawing.Size(124, 22);
+            this.add_Friend.Text = "添加好友";
+            this.add_Friend.Click += new System.EventHandler(this.add_Friend_Click);
+            // 
+            // tmAddFriend
+            // 
+            this.tmAddFriend.Enabled = true;
             // 
             // chat
             // 
@@ -438,5 +452,7 @@
         private System.Windows.Forms.ToolStripMenuItem 蓝色ToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem 粉色ToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem 账号设置ToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem add_Friend;
+        private System.Windows.Forms.Timer tmAddFriend;
     }
 }

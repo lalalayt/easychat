@@ -13,6 +13,7 @@ using System.Threading;
 using System.Drawing.Text;
 using System.IO;
 using System.Drawing.Drawing2D;
+using chat2._0.GuiPackage;
 
 namespace chat2._0
 {
@@ -25,6 +26,8 @@ namespace chat2._0
         private Point formLocation;//窗口位置
         private string userName;//自己的用户名
         ImageList sendButton = null;//发送按钮的图片样式
+        private int receiveRemind = 1;//查询是否是好友的受影响行数
+        public static string sendName;//获取发给当前用户
         //构造函数
         public chat(string userName)
         {
@@ -507,6 +510,25 @@ namespace chat2._0
         private void label6_TextChanged(object sender, EventArgs e)
         {
             label6.Location = new Point(panel2.Width / 2 - label6.Width / 2, panel2.Height / 2 - label6.Height / 2);
+        }
+
+
+        //显示查找好友窗体
+        private void add_Friend_Click(object sender, EventArgs e)
+        {
+            AddFriends af = new AddFriends();//创建查找好友窗体对象
+            af.Show();//显示查找好友窗体
+        }
+
+        //查询是否是好友的受影响行数s1,发送者账号s2
+        public void row(string s1, string s2)
+        {
+            receiveRemind = int.Parse(s1);
+            sendName = s2;
+            if (receiveRemind != 1)
+            {
+                tmAddFriend.Start();
+            }
         }
     }
 }
