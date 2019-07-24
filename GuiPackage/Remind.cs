@@ -14,41 +14,16 @@ namespace chat2._0.GuiPackage
 {
     public partial class Remind : Form
     {
+        private int num;//受影响行数
+
         public Remind()
         {
             InitializeComponent();
             dataProcessing.setRemind(this);
-            //初始化工作区大小
-            Rectangle rect = Screen.GetWorkingArea(this);//创建一个当前窗口的对象
-            this.Rect = new Rectangle(rect.Right - this.Width - 1, rect.Bottom - this.Height - 1, this.Width, this.Height);//为创建的对象创建工作区域
         }
-
-        #region 定义标识窗体移动状态的枚举值
-        protected enum FormState
-        {
-            Hide = 0,//隐藏窗体
-            Display = 1,//显示窗体
-            Displaying = 2,//显示窗体中
-            Hiding = 3 //隐藏窗体中
-        }
-        #endregion
-
-        #region 用属性标识当前状态
-        protected FormState FormNowState
-        {
-            get { return this.InfoStyle; }   //返回窗体的当前状态
-            set { this.InfoStyle = value; }  //设定窗体当前状态的值
-        }
-        #endregion
-
-        private int num;//受影响行数
-        private Rectangle Rect;//定义一个存储矩形框的数组
-        private FormState InfoStyle = FormState.Hide;//定义变量为隐藏
-        static private Remind dropDownForm = new Remind();//实例化当前窗体
 
         private void Remind_Load(object sender, EventArgs e)
         {
-            //dataProcessing.beginWork3("remind");
             label2.Text = chat.sendName + "请求添加您为好友";//显示文本提示信息
             button1.Visible = true;//显示同意按钮                   
         }
@@ -84,12 +59,6 @@ namespace chat2._0.GuiPackage
         private void btnCancel_Click(object sender, EventArgs e)
         {
             this.Close();//关闭当前窗体
-        }
-
-        //关闭窗体
-        public void pboxClose_Click(object sender, EventArgs e)
-        {
-            this.FormNowState = FormState.Hide;//设定当前窗体的状态为隐藏
         }
 
         //拖动窗体
