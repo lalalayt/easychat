@@ -150,6 +150,11 @@ namespace chat2._0.GuiPackage
                 MessageBox.Show("请选择一个好友！", "提示", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 return;
             }
+            else if (dataProcessing.loginName == friendName)
+            {
+                MessageBox.Show("自己不能添加自己！", "提示", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return;
+            }
             else if (HasAdded(friendName))  //判断好友是否已经被添加
             {
                 MessageBox.Show("对方已经是您的好友，请重新选择！", "提示", MessageBoxButtons.OK, MessageBoxIcon.Information);
