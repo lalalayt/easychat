@@ -14,9 +14,23 @@ using System.Drawing.Text;
 using System.IO;
 using System.Drawing.Drawing2D;
 using chat2._0.GuiPackage;
+using System.Runtime.InteropServices;
+using System.Media;
 
 namespace chat2._0
 {
+    /// <summary>
+    /// 接收到消息时提示客户
+    /// </summary>
+    public struct FLASHWINFO
+    {
+        public UInt32 cbSize;
+        public IntPtr hwnd;
+        public UInt32 dwFlags;
+        public UInt32 uCount;
+        public UInt32 dwTimeout;
+    }
+
     public partial class chat : Form
     {
         WindowStyle WindowStyle = new WindowStyle();
@@ -29,6 +43,24 @@ namespace chat2._0
         private int receiveRemind = 1;//查询是否是好友的受影响行数
         public static string sendName;//获取发给当前用户
         private int messageImageIndex = 0; //工具栏中的消息图标的索引
+        //消息提醒右下角图标闪烁
+        private Icon blank = new Icon("icon/d.ico");
+        private Icon normal = new Icon("icon/h.ico");
+        private bool _status = true;
+
+        //消息提醒任务栏图标变亮闪动
+        public const UInt32 FLASHW_STOP = 0;
+        public const UInt32 FLASHW_CAPTION = 1;
+        public const UInt32 FLASHW_TRAY = 2;
+        public const UInt32 FLASHW_ALL = 3;
+        public const UInt32 FLASHW_TIMER = 4;
+        public const UInt32 FLASHW_TIMERNOFG = 12;
+        //任务栏图标变亮闪动系统配置
+        [DllImport("user32.dll")]
+        static extern bool FlashWindowEx(ref FLASHWINFO pwfi);
+        [DllImport("user32.dll")]
+        static extern bool FlashWindow(IntPtr handle, bool invert);
+
         //构造函数
         public chat(string userName)
         {
@@ -110,6 +142,8 @@ namespace chat2._0
                         {
                             richTextBox1.AppendText(s);
                             richTextBox1.AppendText("\n");
+                            messageRemind();
+                            soundRemind();
                         }));
                     }
                     else
@@ -577,6 +611,63 @@ namespace chat2._0
             button1.Enabled = false;
             Remind frmRemind = new Remind();//创建系统消息窗体对象
             frmRemind.Show();//显示系统消息窗体
+        }
+
+         //接收到消息后任务栏窗体变亮提示客户
+        private void messageRemind()
+        {
+            tmChat.Enabled = true;
+            tmChat.Start();
+            FLASHWINFO fInfo = new FLASHWINFO();
+            fInfo.cbSize = Convert.ToUInt32(Marshal.SizeOf(fInfo));
+            fInfo.hwnd = this.Handle;
+            fInfo.dwFlags = FLASHW_TRAY | FLASHW_TIMERNOFG;
+            fInfo.uCount = UInt32.MaxValue;
+            fInfo.dwTimeout = 0;
+            FlashWindowEx(ref fInfo);
+        }
+
+        ////接收到发来的消息时给客户声音提示
+        private void soundRemind()
+        {
+            SoundPlayer vSoundPlayer = new SoundPlayer();
+            vSoundPlayer.Stream = new FileStream("Sound/8407.wav",
+                FileMode.Open, FileAccess.Read);
+            vSoundPlayer.Play();
+        }
+
+        //右键点击右下角图标点击退出关闭客户端
+        private void close_Click(object sender, EventArgs e)
+        {
+            Application.Exit();
+        }
+
+        //双击右下角图标弹出消息框
+        private void notifyIcon1_MouseDoubleClick(object sender, MouseEventArgs e)
+        {
+            tmChat.Stop();
+            notifyIcon1.Icon = blank;
+            if (this.WindowState == System.Windows.Forms.FormWindowState.Minimized)
+                this.WindowState = System.Windows.Forms.FormWindowState.Normal;
+        }
+
+        //右下角图标闪烁
+        private void tmChat_Tick(object sender, EventArgs e)
+        {
+            if (this.WindowState == System.Windows.Forms.FormWindowState.Minimized)
+            {
+                if (_status)
+                    notifyIcon1.Icon = normal;
+                else
+                    notifyIcon1.Icon = blank;
+                _status = !_status;
+                Thread.Sleep(500);
+                notifyIcon1.Icon = blank;
+            }
+            else if (this.WindowState == System.Windows.Forms.FormWindowState.Normal)
+            {
+                tmChat.Stop();
+            }
         }
     }
 }
