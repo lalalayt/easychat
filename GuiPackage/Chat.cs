@@ -142,8 +142,6 @@ namespace chat2._0
                         {
                             richTextBox1.AppendText(s);
                             richTextBox1.AppendText("\n");
-                            messageRemind();
-                            soundRemind();
                         }));
                     }
                     else
@@ -151,6 +149,8 @@ namespace chat2._0
                         chatBuffer[location] += s;
                         chatBuffer[location] += "\n";
                     }
+                    messageRemind();
+                    soundRemind();
                 }));
         }
         //添加在线列表（登录）
@@ -186,7 +186,10 @@ namespace chat2._0
                                 return;
                             }
                             listBox1.Items.Add(s);
-                            chatBuffer.Add(s, "");
+                            if (!chatBuffer.ContainsKey(s))
+                            {
+                                chatBuffer.Add(s, "");
+                            }
                         }));
                         break;
                     }
