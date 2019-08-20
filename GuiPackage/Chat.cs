@@ -136,18 +136,19 @@ namespace chat2._0
         {
             listBox1.BeginInvoke(new Action(() =>
                 {
+                    richTextBox1.SelectionAlignment = HorizontalAlignment.Left;
                     if (listBox1.SelectedItem.ToString() == location)
                     {
                         richTextBox1.BeginInvoke(new Action(() =>
                         {
                             richTextBox1.AppendText(s);
-                            richTextBox1.AppendText("\n");
+                            richTextBox1.AppendText("\n\n");
                         }));
                     }
                     else
                     {
                         chatBuffer[location] += s;
-                        chatBuffer[location] += "\n";
+                        chatBuffer[location] += "\n\n";
                     }
                     messageRemind();
                     soundRemind();
@@ -289,6 +290,9 @@ namespace chat2._0
                     MessageBox.Show("发送消息失败");
                     return;
                 }
+                richTextBox1.SelectionAlignment = HorizontalAlignment.Right;
+                richTextBox1.AppendText(userName + "[" + DateTime.Now.ToString() + "]\n" + richTextBox2.Text);
+                richTextBox1.AppendText("\n\n");
             }
             richTextBox2.Text = "";
         }

@@ -147,12 +147,12 @@ namespace chat2._0
                     string sender = data[1];
                     int textLength = int.Parse(data[2]);
                     string text = receiveString.Substring(receiveString.IndexOf('$', data[0].Length + data[1].Length + 2) + 1, textLength);
-                    string result = sender+"["+DateTime.Now.ToString()+"]:\n"+text;
+                    string result = sender+"["+DateTime.Now.ToString()+"]\n"+text;
                     myChat.addText("公共聊天室",result);
                     break;
                     //私聊
                 case "2"://数据类型2$sender$receiver$消息长度$消息内容$
-                    result = data[1]+"["+DateTime.Now.ToString()+"]:\n"+receiveString.Substring(data[0].Length + data[1].Length + data[2].Length + data[3].Length + 4, int.Parse(data[3]));
+                    result = data[1]+"["+DateTime.Now.ToString()+"]\n"+receiveString.Substring(data[0].Length + data[1].Length + data[2].Length + data[3].Length + 4, int.Parse(data[3]));
                     if (data[1] == myChat.getUserName())
                     {
                         myChat.addText(data[2], result);

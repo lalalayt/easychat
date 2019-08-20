@@ -127,7 +127,7 @@ namespace chat2._0
             //登录时接收到的代码
             if (receiveData[1] == "WRONGPASSWORD")
             {
-                MessageBox.Show("密码错误,请重新输入");
+                MessageBox.Show("账号或密码错误,请重新输入");
                 dataProcessing.beginWork("login");
                 return;
             }
