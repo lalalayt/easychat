@@ -67,6 +67,7 @@ namespace chat2._0
             InitializeComponent();
             dataProcessing.setChat(this);
             this.userName = userName;
+            Expression.Instance.OnSelectExpression += OnSelectExpression;
         }
         private void chat_Load(object sender, EventArgs e)
         {
@@ -675,6 +676,27 @@ namespace chat2._0
             {
                 tmChat.Stop();
             }
+        }
+
+        //点击表情图标弹出表情框
+        private void toolStripButton1_Click(object sender, EventArgs e)
+        {
+            ToolStripDropDown popup = new ToolStripDropDown();
+            popup.Margin = Padding.Empty;
+            popup.Padding = Padding.Empty;
+            ToolStripControlHost host = new ToolStripControlHost(Expression.Instance);
+            host.Size = new Size(120, 80);
+            host.Margin = Padding.Empty;
+            host.Padding = Padding.Empty;
+            popup.Items.Add(host);
+            popup.Show(this, new Point(100, 50));
+        }
+
+        //点击表情将表情插入文本输入框
+        private void OnSelectExpression(object sender, EventArgs e)
+        {
+            PictureBox selectedPictureBox = (PictureBox)sender;
+            this.richTextBox2.InsertImage(selectedPictureBox.Image);
         }
     }
 }

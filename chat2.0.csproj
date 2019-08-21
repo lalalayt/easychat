@@ -32,6 +32,10 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Khendys.Controls.ExRichTextBox, Version=1.0.3421.376, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>bin\Debug\Khendys.Controls.ExRichTextBox.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -57,6 +61,12 @@
       <DependentUpon>Chat.cs</DependentUpon>
     </Compile>
     <Compile Include="dataProcessing.cs" />
+    <Compile Include="GuiPackage\Expression.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="GuiPackage\Expression.Designer.cs">
+      <DependentUpon>Expression.cs</DependentUpon>
+    </Compile>
     <Compile Include="GuiPackage\Login.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -93,6 +103,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="GuiPackage\Chat.resx">
       <DependentUpon>Chat.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GuiPackage\Expression.resx">
+      <DependentUpon>Expression.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="GuiPackage\Login.resx">
       <DependentUpon>Login.cs</DependentUpon>
@@ -131,6 +144,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Image\e.jpg" />
+    <None Include="bin\Debug\Faces\0019.gif" />
     <Content Include="Image\head.jpg" />
     <Content Include="Image\search.png" />
   </ItemGroup>
