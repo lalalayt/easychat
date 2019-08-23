@@ -47,6 +47,7 @@ namespace chat2._0
         private Icon blank = new Icon("icon/d.ico");
         private Icon normal = new Icon("icon/h.ico");
         private bool _status = true;
+        private bool isActive = false;//判断是否执行插入表情事件
 
         //消息提醒任务栏图标变亮闪动
         public const UInt32 FLASHW_STOP = 0;
@@ -133,7 +134,7 @@ namespace chat2._0
         public void showMessageBox(string s)
         { MessageBox.Show(s); }
         //添加聊天内容
-        public void addText(string location,string s)//location:对应窗口
+        public void addText(string location,string recMessage)//location:对应窗口
         {
             listBox1.BeginInvoke(new Action(() =>
                 {
@@ -142,14 +143,15 @@ namespace chat2._0
                     {
                         richTextBox1.BeginInvoke(new Action(() =>
                         {
-                            richTextBox1.AppendText(s);
-                            richTextBox1.AppendText("\n\n");
+                            richTextBox1.AppendText(location + "[" + DateTime.Now.ToString() + "]\n"); 
+                            richTextBox1.AppendRtf(recMessage);
+                            richTextBox1.AppendText("\n");
                         }));
                     }
                     else
                     {
-                        chatBuffer[location] += s;
-                        chatBuffer[location] += "\n\n";
+                        chatBuffer[location] += recMessage;
+                        chatBuffer[location] += "\n";
                     }
                     messageRemind();
                     soundRemind();
@@ -266,36 +268,42 @@ namespace chat2._0
         //发送按钮点击
         private void pictureBox2_Click(object sender, EventArgs e)
         {
-            if(richTextBox2.Text.Trim() == "")
+            if (richTextBox2.Text.Trim() != "" || isActive == true)
+            {
+                List<string> data = new List<string>();
+                data.Add(richTextBox2.Rtf);
+                if (listBox1.SelectedItem.ToString() == "公共聊天室")
+                {
+                    if (!dataProcessing.sendData(1, data))//消息类型1:发送到聊天室的消息
+                    {
+                        MessageBox.Show("发送消息失败");
+                        return;
+                    }
+                }
+                else
+                {
+                    data = new List<string>();
+                    data.Add(listBox1.SelectedItem.ToString());//receiver
+                    data.Add(richTextBox2.Rtf);
+                    if (!dataProcessing.sendData(2, data))//消息类型2:私聊
+                    {
+                        MessageBox.Show("发送消息失败");
+                        return;
+                    }
+                    richTextBox1.SelectionAlignment = HorizontalAlignment.Right;
+                    richTextBox1.AppendText(userName + "[" + DateTime.Now.ToString() + "]\n");
+                    richTextBox2.SelectionAlignment = HorizontalAlignment.Right;
+                    richTextBox1.SelectedRtf = richTextBox2.Rtf;
+                    richTextBox1.AppendText("\n");
+                }
+                richTextBox2.Text = "";
+                isActive = false;
+            }
+            else
             {
                 MessageBox.Show("发送内容不能为空");
                 return;
             }
-            List<string> data = new List<string>();
-            data.Add(richTextBox2.Text);
-            if (listBox1.SelectedItem.ToString() == "公共聊天室")
-            {
-                if (!dataProcessing.sendData(1, data))//消息类型1:发送到聊天室的消息
-                {
-                    MessageBox.Show("发送消息失败");
-                    return;
-                }
-            }
-            else
-            {
-                data = new List<string>(); 
-                data.Add(listBox1.SelectedItem.ToString());//receiver
-                data.Add(richTextBox2.Text);
-                if (!dataProcessing.sendData(2, data))//消息类型2:私聊
-                {
-                    MessageBox.Show("发送消息失败");
-                    return;
-                }
-                richTextBox1.SelectionAlignment = HorizontalAlignment.Right;
-                richTextBox1.AppendText(userName + "[" + DateTime.Now.ToString() + "]\n" + richTextBox2.Text);
-                richTextBox1.AppendText("\n\n");
-            }
-            richTextBox2.Text = "";
         }
         private void label10_Click(object sender, EventArgs e)
         {
@@ -697,6 +705,7 @@ namespace chat2._0
         {
             PictureBox selectedPictureBox = (PictureBox)sender;
             this.richTextBox2.InsertImage(selectedPictureBox.Image);
+            isActive = true;
         }
     }
 }

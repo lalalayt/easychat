@@ -63,7 +63,7 @@ namespace chat2._0
                 //data[0]:receiver    data[1]:消息内容
                 case 2://格式:数据类型2$sender$receiver$消息长度$消息内容$
                     sendData = num.ToString() + "$" + myChat.getUserName() +
-                        "$" + data[0] + "$" + data[1].Length.ToString() + "$" + data[1] + "$";
+                        "$" + data[0] + "$" + data[1] + "$";
                     break;
                 //获取在线用户列表
                 //data[0]:代码
@@ -123,7 +123,7 @@ namespace chat2._0
             string[] data = null;
             if (server == null) return data;
             
-            byte[] receiveByte = new byte[1024];
+            byte[] receiveByte = new byte[1024*1000];
             try
             {
                 server.Receive(receiveByte);
@@ -152,16 +152,7 @@ namespace chat2._0
                     break;
                     //私聊
                 case "2"://数据类型2$sender$receiver$消息长度$消息内容$
-                    result = data[1]+"["+DateTime.Now.ToString()+"]\n"+receiveString.Substring(data[0].Length + data[1].Length + data[2].Length + data[3].Length + 4, int.Parse(data[3]));
-                    if (data[1] == myChat.getUserName())
-                    {
-                        myChat.addText(data[2], result);
-                    }
-                    else
-                    {
-                        myChat.addText(data[1], result);
-                    }
-                    
+                    myChat.addText(data[1], data[3]);
                     break;
                 case "3":
                     for (int i = 1; i < data.Length-1; i++)
