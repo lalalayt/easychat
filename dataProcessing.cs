@@ -57,7 +57,7 @@ namespace chat2._0
                 //发送公共消息
                 //data[0]:消息内容
                 case 1://格式:数据类型1$sender$消息长度$消息内容$
-                    sendData = num.ToString() + "$" + myChat.getUserName() +"$" + data[0].Length + "$" + data[0] + "$";
+                    sendData = num.ToString() + "$" + myChat.getUserName() +"$" + data[0] + "$";
                     break;
                 //私聊
                 //data[0]:receiver    data[1]:消息内容
@@ -77,7 +77,7 @@ namespace chat2._0
                     sendData = num.ToString() + "$" + data[0] + "$";
                     break;
                 case 6:
-                    myChat.addText("公共聊天室",data[1]+"已登录");
+                    myChat.addText("公共聊天室", data[1]+"已登录", null);
                     myChat.addListBox(data[1]);
                     break;
                 case 7:
@@ -144,15 +144,15 @@ namespace chat2._0
                     //直接返回已分段的消息
                     break;
                 case "1"://1$sender$textLength$text$
-                    string sender = data[1];
-                    int textLength = int.Parse(data[2]);
-                    string text = receiveString.Substring(receiveString.IndexOf('$', data[0].Length + data[1].Length + 2) + 1, textLength);
-                    string result = sender+"["+DateTime.Now.ToString()+"]\n"+text;
-                    myChat.addText("公共聊天室",result);
+                    //string sender = data[1];
+                    //int textLength = int.Parse(data[2]);
+                    //string text = receiveString.Substring(receiveString.IndexOf('$', data[0].Length + data[1].Length + 2) + 1, textLength);
+                    //string result = sender+"["+DateTime.Now.ToString()+"]\n"+text;
+                    myChat.addText("公共聊天室", data[1], data[2]);
                     break;
                     //私聊
                 case "2"://数据类型2$sender$receiver$消息长度$消息内容$
-                    myChat.addText(data[1], data[3]);
+                    myChat.addText(data[1], data[1], data[3]);
                     break;
                 case "3":
                     for (int i = 1; i < data.Length-1; i++)
