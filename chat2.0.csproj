@@ -143,6 +143,7 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Image\voice.png" />
     <None Include="Image\e.jpg" />
     <None Include="bin\Debug\Faces\0019.gif" />
     <Content Include="Image\head.jpg" />

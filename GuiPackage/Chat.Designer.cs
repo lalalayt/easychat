@@ -39,6 +39,7 @@
             this.panel2 = new System.Windows.Forms.Panel();
             this.label6 = new System.Windows.Forms.Label();
             this.panel3 = new System.Windows.Forms.Panel();
+            this.button1 = new System.Windows.Forms.Button();
             this.listBox1 = new System.Windows.Forms.ListBox();
             this.label1 = new System.Windows.Forms.Label();
             this.richTextBox1 = new Khendys.Controls.ExRichTextBox();
@@ -65,7 +66,7 @@
             this.toolStrip2 = new System.Windows.Forms.ToolStrip();
             this.toolStripButton1 = new System.Windows.Forms.ToolStripButton();
             this.pictureBox2 = new System.Windows.Forms.PictureBox();
-            this.button1 = new System.Windows.Forms.Button();
+            this.toolStripButton2 = new System.Windows.Forms.ToolStripButton();
             this.panel1.SuspendLayout();
             this.panel3.SuspendLayout();
             this.Cms_setting.SuspendLayout();
@@ -197,6 +198,19 @@
             this.panel3.Size = new System.Drawing.Size(172, 520);
             this.panel3.TabIndex = 2;
             // 
+            // button1
+            // 
+            this.button1.Enabled = false;
+            this.button1.FlatAppearance.BorderSize = 0;
+            this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.button1.Image = global::chat2._0.Properties.Resources.e;
+            this.button1.Location = new System.Drawing.Point(128, 8);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(23, 23);
+            this.button1.TabIndex = 8;
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
+            // 
             // listBox1
             // 
             this.listBox1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(150)))), ((int)(((byte)(150)))), ((int)(((byte)(150)))));
@@ -230,6 +244,7 @@
             this.richTextBox1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(217)))), ((int)(((byte)(217)))), ((int)(((byte)(217)))));
             this.richTextBox1.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.richTextBox1.Font = new System.Drawing.Font("黑体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.richTextBox1.HiglightColor = Khendys.Controls.RtfColor.White;
             this.richTextBox1.Location = new System.Drawing.Point(184, 104);
             this.richTextBox1.Margin = new System.Windows.Forms.Padding(2);
             this.richTextBox1.Name = "richTextBox1";
@@ -238,6 +253,7 @@
             this.richTextBox1.Size = new System.Drawing.Size(579, 304);
             this.richTextBox1.TabIndex = 20;
             this.richTextBox1.Text = "";
+            this.richTextBox1.TextColor = Khendys.Controls.RtfColor.Black;
             this.richTextBox1.TextChanged += new System.EventHandler(this.richTextBox1_TextChanged);
             // 
             // richTextBox2
@@ -245,6 +261,7 @@
             this.richTextBox2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(217)))), ((int)(((byte)(217)))), ((int)(((byte)(217)))));
             this.richTextBox2.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.richTextBox2.Font = new System.Drawing.Font("黑体", 12F);
+            this.richTextBox2.HiglightColor = Khendys.Controls.RtfColor.White;
             this.richTextBox2.Location = new System.Drawing.Point(184, 445);
             this.richTextBox2.Margin = new System.Windows.Forms.Padding(2);
             this.richTextBox2.MaxLength = 300;
@@ -253,6 +270,7 @@
             this.richTextBox2.Size = new System.Drawing.Size(579, 120);
             this.richTextBox2.TabIndex = 0;
             this.richTextBox2.Text = "";
+            this.richTextBox2.TextColor = Khendys.Controls.RtfColor.Black;
             this.richTextBox2.KeyDown += new System.Windows.Forms.KeyEventHandler(this.richTextBox2_KeyDown);
             this.richTextBox2.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.richTextBox2_KeyPress);
             // 
@@ -412,10 +430,11 @@
             // 
             this.toolStrip2.Dock = System.Windows.Forms.DockStyle.None;
             this.toolStrip2.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.toolStripButton1});
+            this.toolStripButton1,
+            this.toolStripButton2});
             this.toolStrip2.Location = new System.Drawing.Point(184, 418);
             this.toolStrip2.Name = "toolStrip2";
-            this.toolStrip2.Size = new System.Drawing.Size(66, 25);
+            this.toolStrip2.Size = new System.Drawing.Size(89, 25);
             this.toolStrip2.TabIndex = 23;
             this.toolStrip2.Text = "toolStrip2";
             // 
@@ -445,18 +464,14 @@
             this.pictureBox2.MouseLeave += new System.EventHandler(this.pictureBox2_MouseLeave);
             this.pictureBox2.MouseUp += new System.Windows.Forms.MouseEventHandler(this.pictureBox2_MouseUp);
             // 
-            // button1
+            // toolStripButton2
             // 
-            this.button1.Enabled = false;
-            this.button1.FlatAppearance.BorderSize = 0;
-            this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button1.Image = global::chat2._0.Properties.Resources.e;
-            this.button1.Location = new System.Drawing.Point(128, 8);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(23, 23);
-            this.button1.TabIndex = 8;
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
+            this.toolStripButton2.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.toolStripButton2.Image = global::chat2._0.Properties.Resources.voice;
+            this.toolStripButton2.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripButton2.Name = "toolStripButton2";
+            this.toolStripButton2.Size = new System.Drawing.Size(23, 22);
+            this.toolStripButton2.Text = "toolStripButton2";
             // 
             // chat
             // 
@@ -534,5 +549,6 @@
         private System.Windows.Forms.Timer tmChat;
         private System.Windows.Forms.ToolStrip toolStrip2;
         private System.Windows.Forms.ToolStripButton toolStripButton1;
+        private System.Windows.Forms.ToolStripButton toolStripButton2;
     }
 }

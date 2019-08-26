@@ -134,7 +134,7 @@ namespace chat2._0
         public void showMessageBox(string s)
         { MessageBox.Show(s); }
         //添加聊天内容
-        public void addText(string location,string recMessage)//location:对应窗口
+        public void addText(string location, string sendName, string recMessage)//location:对应窗口
         {
             listBox1.BeginInvoke(new Action(() =>
                 {
@@ -143,14 +143,14 @@ namespace chat2._0
                     {
                         richTextBox1.BeginInvoke(new Action(() =>
                         {
-                            richTextBox1.AppendText(location + "[" + DateTime.Now.ToString() + "]\n"); 
+                            richTextBox1.AppendText(sendName + "[" + DateTime.Now.ToString() + "]\n"); 
                             richTextBox1.AppendRtf(recMessage);
                             richTextBox1.AppendText("\n");
                         }));
                     }
                     else
                     {
-                        chatBuffer[location] += recMessage;
+                        chatBuffer[location] += sendName + "[" + DateTime.Now.ToString() + "]\n" + recMessage;
                         chatBuffer[location] += "\n";
                     }
                     messageRemind();
