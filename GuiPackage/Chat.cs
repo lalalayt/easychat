@@ -145,12 +145,26 @@ namespace chat2._0
                             richTextBox1.AppendText(sendName + "[" + DateTime.Now.ToString() + "]\n"); 
                             richTextBox1.AppendRtf(recMessage);
                             richTextBox1.AppendText("\n");
+                            
                         }));
                     }
                     else
                     {
-                        chatBuffer[location] += sendName + "[" + DateTime.Now.ToString() + "]\n" + recMessage;
-                        chatBuffer[location] += "\n";
+                        for (int i = 0; i < listBox1.Items.Count; i++)
+                        {
+                            if (listBox1.Items[i].ToString().Trim() == location)
+                            {
+                                listBox1.SelectedIndex = i;
+                                richTextBox1.AppendText(sendName + "[" + DateTime.Now.ToString() + "]\n");
+                                richTextBox1.AppendRtf(recMessage);
+                                richTextBox1.AppendText("\n");
+                            }
+                        }
+                        //richTextBox2.Rtf = recMessage;
+                        //chatBuffer[location] += sendName + "[" + DateTime.Now.ToString() + "]\n" + recMessage;
+                        //chatBuffer[location] += recMessage;
+                        //chatBuffer[location] += "\n";
+                        //richTextBox2.Text = "";
                     }
                     messageRemind();
                     soundRemind();
@@ -563,10 +577,10 @@ namespace chat2._0
                 richTextBox1.Text = richTextBox1.Text.Replace(history, "");
             }
 
-            chatBuffer[label6.Text] = richTextBox1.Text + history;
+            chatBuffer[label6.Text] = richTextBox1.Rtf + history;
             
             label6.Text = listBox1.SelectedItem.ToString();
-            richTextBox1.Text = chatBuffer[label6.Text];
+            richTextBox1.Rtf = chatBuffer[label6.Text];
             chatBuffer[label6.Text] = "";
         }
         //顶部移动
@@ -706,6 +720,5 @@ namespace chat2._0
             this.richTextBox2.InsertImage(selectedPictureBox.Image);
             isActive = true;
         }
-        
     }
 }
