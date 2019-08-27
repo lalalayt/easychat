@@ -63,19 +63,9 @@ namespace chat2._0.Properties {
         /// <summary>
         ///   查找 System.Drawing.Bitmap 类型的本地化资源。
         /// </summary>
-        internal static System.Drawing.Bitmap _0019 {
+        internal static System.Drawing.Bitmap _1 {
             get {
-                object obj = ResourceManager.GetObject("0019", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   查找 System.Drawing.Bitmap 类型的本地化资源。
-        /// </summary>
-        internal static System.Drawing.Bitmap _00191 {
-            get {
-                object obj = ResourceManager.GetObject("00191", resourceCulture);
+                object obj = ResourceManager.GetObject("1", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

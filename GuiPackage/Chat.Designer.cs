@@ -39,7 +39,6 @@
             this.panel2 = new System.Windows.Forms.Panel();
             this.label6 = new System.Windows.Forms.Label();
             this.panel3 = new System.Windows.Forms.Panel();
-            this.button1 = new System.Windows.Forms.Button();
             this.listBox1 = new System.Windows.Forms.ListBox();
             this.label1 = new System.Windows.Forms.Label();
             this.richTextBox1 = new Khendys.Controls.ExRichTextBox();
@@ -63,15 +62,15 @@
             this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.close = new System.Windows.Forms.ToolStripMenuItem();
             this.tmChat = new System.Windows.Forms.Timer(this.components);
-            this.toolStrip2 = new System.Windows.Forms.ToolStrip();
+            this.toolStrip1 = new System.Windows.Forms.ToolStrip();
             this.toolStripButton1 = new System.Windows.Forms.ToolStripButton();
             this.pictureBox2 = new System.Windows.Forms.PictureBox();
-            this.toolStripButton2 = new System.Windows.Forms.ToolStripButton();
+            this.button1 = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
             this.panel3.SuspendLayout();
             this.Cms_setting.SuspendLayout();
             this.contextMenuStrip1.SuspendLayout();
-            this.toolStrip2.SuspendLayout();
+            this.toolStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             this.SuspendLayout();
             // 
@@ -197,19 +196,6 @@
             this.panel3.Name = "panel3";
             this.panel3.Size = new System.Drawing.Size(172, 520);
             this.panel3.TabIndex = 2;
-            // 
-            // button1
-            // 
-            this.button1.Enabled = false;
-            this.button1.FlatAppearance.BorderSize = 0;
-            this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button1.Image = global::chat2._0.Properties.Resources.e;
-            this.button1.Location = new System.Drawing.Point(128, 8);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(23, 23);
-            this.button1.TabIndex = 8;
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // listBox1
             // 
@@ -426,22 +412,21 @@
             this.tmChat.Interval = 500;
             this.tmChat.Tick += new System.EventHandler(this.tmChat_Tick);
             // 
-            // toolStrip2
+            // toolStrip1
             // 
-            this.toolStrip2.Dock = System.Windows.Forms.DockStyle.None;
-            this.toolStrip2.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.toolStripButton1,
-            this.toolStripButton2});
-            this.toolStrip2.Location = new System.Drawing.Point(184, 418);
-            this.toolStrip2.Name = "toolStrip2";
-            this.toolStrip2.Size = new System.Drawing.Size(89, 25);
-            this.toolStrip2.TabIndex = 23;
-            this.toolStrip2.Text = "toolStrip2";
+            this.toolStrip1.Dock = System.Windows.Forms.DockStyle.None;
+            this.toolStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.toolStripButton1});
+            this.toolStrip1.Location = new System.Drawing.Point(184, 418);
+            this.toolStrip1.Name = "toolStrip1";
+            this.toolStrip1.Size = new System.Drawing.Size(66, 25);
+            this.toolStrip1.TabIndex = 21;
+            this.toolStrip1.Text = "toolStrip1";
             // 
             // toolStripButton1
             // 
             this.toolStripButton1.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.toolStripButton1.Image = global::chat2._0.Properties.Resources._00191;
+            this.toolStripButton1.Image = global::chat2._0.Properties.Resources._1;
             this.toolStripButton1.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolStripButton1.Name = "toolStripButton1";
             this.toolStripButton1.Size = new System.Drawing.Size(23, 22);
@@ -464,14 +449,18 @@
             this.pictureBox2.MouseLeave += new System.EventHandler(this.pictureBox2_MouseLeave);
             this.pictureBox2.MouseUp += new System.Windows.Forms.MouseEventHandler(this.pictureBox2_MouseUp);
             // 
-            // toolStripButton2
+            // button1
             // 
-            this.toolStripButton2.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.toolStripButton2.Image = global::chat2._0.Properties.Resources.voice;
-            this.toolStripButton2.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.toolStripButton2.Name = "toolStripButton2";
-            this.toolStripButton2.Size = new System.Drawing.Size(23, 22);
-            this.toolStripButton2.Text = "toolStripButton2";
+            this.button1.Enabled = false;
+            this.button1.FlatAppearance.BorderSize = 0;
+            this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.button1.Image = global::chat2._0.Properties.Resources.e;
+            this.button1.Location = new System.Drawing.Point(128, 8);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(23, 23);
+            this.button1.TabIndex = 8;
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // chat
             // 
@@ -479,7 +468,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(238)))), ((int)(((byte)(238)))), ((int)(((byte)(238)))));
             this.ClientSize = new System.Drawing.Size(770, 573);
-            this.Controls.Add(this.toolStrip2);
+            this.Controls.Add(this.toolStrip1);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label6);
             this.Controls.Add(this.label10);
@@ -503,8 +492,8 @@
             this.panel3.PerformLayout();
             this.Cms_setting.ResumeLayout(false);
             this.contextMenuStrip1.ResumeLayout(false);
-            this.toolStrip2.ResumeLayout(false);
-            this.toolStrip2.PerformLayout();
+            this.toolStrip1.ResumeLayout(false);
+            this.toolStrip1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -547,8 +536,7 @@
         private System.Windows.Forms.ContextMenuStrip contextMenuStrip1;
         private System.Windows.Forms.ToolStripMenuItem close;
         private System.Windows.Forms.Timer tmChat;
-        private System.Windows.Forms.ToolStrip toolStrip2;
+        private System.Windows.Forms.ToolStrip toolStrip1;
         private System.Windows.Forms.ToolStripButton toolStripButton1;
-        private System.Windows.Forms.ToolStripButton toolStripButton2;
     }
 }
