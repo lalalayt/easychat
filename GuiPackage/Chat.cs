@@ -72,7 +72,6 @@ namespace chat2._0
         }
         private void chat_Load(object sender, EventArgs e)
         {
-
             if (this.WindowState == FormWindowState.Normal)
             {
                 Region = WindowStyle.SetWindowRegion(Width,Height,8);
@@ -707,5 +706,6 @@ namespace chat2._0
             this.richTextBox2.InsertImage(selectedPictureBox.Image);
             isActive = true;
         }
+        
     }
 }
