@@ -150,6 +150,12 @@
     <Compile Include="VideoViewer\FullScreenForm.Designer.cs">
       <DependentUpon>FullScreenForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="VideoViewer\VideoRequestViewer.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="VideoViewer\VideoRequestViewer.Designer.cs">
+      <DependentUpon>VideoRequestViewer.cs</DependentUpon>
+    </Compile>
     <Compile Include="VideoViewer\VideoViewer.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -187,6 +193,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="VideoViewer\FullScreenForm.resx">
       <DependentUpon>FullScreenForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="VideoViewer\VideoRequestViewer.resx">
+      <DependentUpon>VideoRequestViewer.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="VideoViewer\VideoViewer.resx">
       <DependentUpon>VideoViewer.cs</DependentUpon>
