@@ -31,13 +31,47 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\x86\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <Prefer32Bit>true</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x86'">
+    <OutputPath>bin\x86\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <Prefer32Bit>true</Prefer32Bit>
+  </PropertyGroup>
   <ItemGroup>
+    <Reference Include="CSkin, Version=16.1.14.3, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>bin\Debug\CSkin.dll</HintPath>
+    </Reference>
+    <Reference Include="ESBasic">
+      <HintPath>dlls\ESBasic.dll</HintPath>
+    </Reference>
     <Reference Include="Khendys.Controls.ExRichTextBox, Version=1.0.3421.376, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>bin\Debug\Khendys.Controls.ExRichTextBox.dll</HintPath>
     </Reference>
+    <Reference Include="OMCS">
+      <HintPath>dlls\OMCS.dll</HintPath>
+    </Reference>
+    <Reference Include="OMCS.Boost">
+      <HintPath>dlls\OMCS.Boost.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Design" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -102,7 +136,26 @@
     <Compile Include="ServiceLogicPackage\GetMessage.cs" />
     <Compile Include="ServiceLogicPackage\PublicClass.cs" />
     <Compile Include="ServiceLogicPackage\SendMessage.cs" />
+    <Compile Include="ServiceLogicPackage\ViewerType.cs" />
     <Compile Include="ServiceLogicPackage\WindowStyle.cs" />
+    <Compile Include="VideoPanel.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="VideoPanel.Designer.cs">
+      <DependentUpon>VideoPanel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="VideoViewer\FullScreenForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="VideoViewer\FullScreenForm.Designer.cs">
+      <DependentUpon>FullScreenForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="VideoViewer\VideoViewer.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="VideoViewer\VideoViewer.Designer.cs">
+      <DependentUpon>VideoViewer.cs</DependentUpon>
+    </Compile>
     <EmbeddedResource Include="GuiPackage\AddFriends.resx">
       <DependentUpon>AddFriends.cs</DependentUpon>
     </EmbeddedResource>
@@ -129,6 +182,15 @@
       <SubType>Designer</SubType>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <EmbeddedResource Include="VideoPanel.resx">
+      <DependentUpon>VideoPanel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="VideoViewer\FullScreenForm.resx">
+      <DependentUpon>FullScreenForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="VideoViewer\VideoViewer.resx">
+      <DependentUpon>VideoViewer.cs</DependentUpon>
+    </EmbeddedResource>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -143,6 +205,7 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Image\video.png" />
     <None Include="Image\voice.png" />
     <None Include="Image\e.jpg" />
     <None Include="bin\Debug\Faces\0019.gif" />
