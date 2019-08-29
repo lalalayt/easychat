@@ -1,4 +1,5 @@
-﻿namespace chat2._0.VideoViewer
+﻿using OMCS.Boost.Controls;
+namespace chat2._0.VideoViewer
 {
     partial class VideoViewer
     {
@@ -51,6 +52,7 @@
             this.panel_bigCamera.BackColor = System.Drawing.Color.Black;
             resources.ApplyResources(this.panel_bigCamera, "panel_bigCamera");
             this.panel_bigCamera.Name = "panel_bigCamera";
+            this.panel_bigCamera.DoubleClick += new System.EventHandler(this.panel_bigCamera_DoubleClick);
             // 
             // panel_smallCamera
             // 
@@ -122,7 +124,7 @@
         private VideoPanel panel_smallCamera;
         private OMCS.Passive.Video.DynamicCameraConnector dynamicCameraConnector_other;
         private OMCS.Passive.Video.DynamicCameraConnector dynamicCameraConnector_self;
-        private OMCS.Boost.Controls.ChannelQualityDisplayer channelQualityDisplayer1;
+        private ChannelQualityDisplayer channelQualityDisplayer1;
         private OMCS.Passive.Audio.MicrophoneConnector microphoneConnector1;
     }
 }
