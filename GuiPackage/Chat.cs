@@ -16,6 +16,7 @@ using System.Drawing.Drawing2D;
 using chat2._0.GuiPackage;
 using System.Runtime.InteropServices;
 using System.Media;
+using chat2._0.VideoViewer;
 
 namespace chat2._0
 {
@@ -79,8 +80,7 @@ namespace chat2._0
             else
             {
                 this.Region = null;
-            }
-
+            }      
             sendButton = GrayButton;
             chatBuffer = new Dictionary<string, string>();
             chatBuffer.Add("公共聊天室","");
@@ -567,6 +567,14 @@ namespace chat2._0
         //选择聊天对象改变时
         private void listBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
+            if (listBox1.SelectedItem.ToString().Equals("公共聊天室"))
+            {
+                toolStripButton2.Enabled = false;
+            }
+            else
+            {
+                toolStripButton2.Enabled = true;
+            }
             string history = "\n--------------------------历史消息--------------------------\n";
             if (label6.Text == listBox1.SelectedItem.ToString())
             {
@@ -719,6 +727,26 @@ namespace chat2._0
             PictureBox selectedPictureBox = (PictureBox)sender;
             this.richTextBox2.InsertImage(selectedPictureBox.Image);
             isActive = true;
+        }
+
+        /// <summary>
+        /// 请求视频聊天
+        /// </summary>
+        private void toolStripButton2_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                //打开聊天窗口
+                VideoConnection vc = new VideoConnection(userName, listBox1.SelectedItem.ToString());
+                vc.Show();
+                toolStripButton2.Enabled = false;
+                //发送请求消息给对方 
+
+            }
+            catch (Exception ee)
+            {
+                MessageBox.Show(ee.Message);
+            }
         }
     }
 }

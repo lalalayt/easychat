@@ -134,9 +134,10 @@
     </Compile>
     <Compile Include="ServiceLogicPackage\FromValidation.cs" />
     <Compile Include="ServiceLogicPackage\GetMessage.cs" />
+    <Compile Include="ServiceLogicPackage\InformationTypes.cs" />
     <Compile Include="ServiceLogicPackage\PublicClass.cs" />
     <Compile Include="ServiceLogicPackage\SendMessage.cs" />
-    <Compile Include="ServiceLogicPackage\ViewerType.cs" />
+    <Compile Include="ViewerType.cs" />
     <Compile Include="ServiceLogicPackage\WindowStyle.cs" />
     <Compile Include="VideoPanel.cs">
       <SubType>UserControl</SubType>
@@ -149,6 +150,12 @@
     </Compile>
     <Compile Include="VideoViewer\FullScreenForm.Designer.cs">
       <DependentUpon>FullScreenForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="VideoViewer\VideoConnection.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="VideoViewer\VideoConnection.Designer.cs">
+      <DependentUpon>VideoConnection.cs</DependentUpon>
     </Compile>
     <Compile Include="VideoViewer\VideoRequestViewer.cs">
       <SubType>UserControl</SubType>
@@ -193,6 +200,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="VideoViewer\FullScreenForm.resx">
       <DependentUpon>FullScreenForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="VideoViewer\VideoConnection.resx">
+      <DependentUpon>VideoConnection.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="VideoViewer\VideoRequestViewer.resx">
       <DependentUpon>VideoRequestViewer.cs</DependentUpon>
