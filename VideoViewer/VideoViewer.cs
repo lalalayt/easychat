@@ -11,7 +11,6 @@ using OMCS.Passive;
 using OMCS.Passive.Video;
 using OMCS.Passive.Audio;
 using chat2._0.ServiceLogicPackage;
-//using chat2._0.ServiceLogicPackage;
 
 namespace chat2._0.VideoViewer
 {

@@ -20,16 +20,24 @@ namespace chat2._0.ServiceLogicPackage
         /// </summary>
         public const int VideoRequest = 1;
         /// <summary>
-        /// 回复视频请求的结果 2
+        /// 接受视频 2
         /// </summary>
-        public const int VideoResult = 2;
+        public const int VideoReceive = 2;
         /// <summary>
-        /// 通知对方 挂断 视频连接 3
+        /// 拒绝视频 3
         /// </summary>
-        public const int CloseVideo = 3;
+        public const int VideoReject = 3;
+        /// <summary>
+        /// 通知对方 挂断 视频连接 4
+        /// </summary>
+        public const int CloseVideo = 4;
         /// <summary>
         /// 通知好友 网络原因，导致 视频中断 
         /// </summary>
-        public const int NetReasonCloseVideo = 4;
+        public const int NetReasonCloseVideo = 5;
+        /// <summary>
+        /// 通知自己 挂断 视频连接 6
+        /// </summary>
+        public const int SelfCloseVideo = 6;
     }
 }
