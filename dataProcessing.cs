@@ -217,17 +217,13 @@ namespace chat2._0
                 case "18":
                     myChat.HandleInformation(data[1], data[3]);
                     break;
-                //挂断视频
+                //发送给别人的挂断视频消息
                 case "19":
                     myChat.HandleInformation(data[1], data[3]);
                     break;
                 //发送给自己的挂断视频消息
                 case "20":
                     myChat.videoClose(null, data[1]);
-                    break;
-                //视频按钮可点击
-                case "21":
-                    myChat.videoButton();
                     break;
                 case "404":
                     sendData(404, null);
