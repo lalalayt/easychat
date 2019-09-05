@@ -826,9 +826,14 @@ namespace chat2._0
                     vc.CloseVideoViewer();
                     if (vc.Disposing || vc.IsDisposed)
                     {
+                        richTextBox1.SelectionAlignment = HorizontalAlignment.Center;
+                        richTextBox1.AppendText("对方拒绝接受视频\n");
+                        toolStripButton2.Enabled = true;
                         return;
                     }
-                    richTextBox1.AppendText("对方拒绝接受视频");
+                    richTextBox1.SelectionAlignment = HorizontalAlignment.Center;
+                    richTextBox1.AppendText("对方拒绝接受视频\n");
+                    toolStripButton2.Enabled = true;
                     return;
                 }
                 #endregion
@@ -849,20 +854,13 @@ namespace chat2._0
                 if (int.Parse(informationType) == InformationTypes.NetReasonCloseVideo)
                 {
                     vc.CloseVideoFunction(-1, null);
-                    richTextBox1.AppendText("网络中断，视频终止");
+                    richTextBox1.SelectionAlignment = HorizontalAlignment.Center;
+                    richTextBox1.AppendText("网络中断，视频终止\n");
+                    toolStripButton2.Enabled = true;
                     return;
                 }
                 #endregion
             }
-        }
-
-        //视频按钮状态
-        public void videoButton()
-        {
-            toolStrip1.BeginInvoke(new Action(() =>
-            {
-                toolStripButton2.Enabled = true;
-            }));
         }
 
         //自己挂断视频
