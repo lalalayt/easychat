@@ -85,7 +85,7 @@ namespace chat2._0
             this.multimediaManager.CameraDeviceIndex = 0;
             this.multimediaManager.MicrophoneDeviceIndex = 0;
             this.multimediaManager.SpeakerIndex = 0;
-            this.multimediaManager.ChannelMode = ChannelMode.P2PChannelFirst;
+            this.multimediaManager.ChannelMode = ChannelMode.P2PDisabled;
             this.multimediaManager.CameraEncodeQuality = 3;
         }
 

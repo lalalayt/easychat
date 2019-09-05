@@ -35,9 +35,5 @@ namespace chat2._0.ServiceLogicPackage
         /// 通知好友 网络原因，导致 视频中断 
         /// </summary>
         public const int NetReasonCloseVideo = 5;
-        /// <summary>
-        /// 通知自己 挂断 视频连接 6
-        /// </summary>
-        public const int SelfCloseVideo = 6;
     }
 }
