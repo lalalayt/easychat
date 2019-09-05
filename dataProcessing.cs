@@ -19,7 +19,7 @@ namespace chat2._0
         //连接服务器套接字
         private static Socket server;
         //服务器地址
-        private static IPAddress IP = IPAddress.Parse("127.0.0.1");//服务器地址
+        private static IPAddress IP = IPAddress.Parse("192.168.3.25");//服务器地址
         private static int port = 8081;//服务器端口号
         private static Remind remind = null;//提供一些公共方法
         private static AddFriends myFriend = null;//提供一些公共方法
@@ -119,11 +119,7 @@ namespace chat2._0
                     break;
                 //发送给自己的挂断视频消息
                 case 20:
-                    sendData = num.ToString() + "$" + data[0] + "$";
-                    break;
-                //视频按钮可点击
-                case 21:
-                    sendData = num.ToString() + "$";
+                    sendData = num.ToString() + "$" + myChat.getUserName() + "$" + data[0] + "$";
                     break;
                 case 404:
                     sendData = "404$";
@@ -219,11 +215,11 @@ namespace chat2._0
                     break;
                 //发送给别人的挂断视频消息
                 case "19":
-                    myChat.HandleInformation(data[1], data[3]);
+                    myChat.HandleInformation(null, data[3]);
                     break;
                 //发送给自己的挂断视频消息
                 case "20":
-                    myChat.videoClose(null, data[1]);
+                    myChat.videoClose(null, data[2]);
                     break;
                 case "404":
                     sendData(404, null);

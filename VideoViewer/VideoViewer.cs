@@ -85,8 +85,8 @@ namespace chat2._0.VideoViewer
             this.microphoneConnector1.Disconnected += new ESBasic.CbGeneric<OMCS.Passive.ConnectorDisconnectedType>(microphoneConnector1_Disconnected);
             this.dynamicCameraConnector_self.ConnectEnded += new ESBasic.CbGeneric<OMCS.Passive.ConnectResult>(dynamicCameraConnector_self_ConnectEnded);
 
-            this.dynamicCameraConnector_other.WaitOwnerOnlineSpanInSecs = 10;
-            this.microphoneConnector1.WaitOwnerOnlineSpanInSecs = 10;
+            this.dynamicCameraConnector_other.WaitOwnerOnlineSpanInSecs = 30;
+            this.microphoneConnector1.WaitOwnerOnlineSpanInSecs = 30;
         }
 
         #endregion

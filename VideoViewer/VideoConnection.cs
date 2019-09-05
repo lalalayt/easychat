@@ -8,6 +8,7 @@ using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -192,7 +193,6 @@ namespace chat2._0.VideoViewer
                 this.CloseVideoViewer();
                 //出动断开 对方到自己的连接
                 this.multimediaManager.DisconnectGuest(friendName, OMCS.MultimediaDeviceType.Camera, false);
-
                 if (!string.IsNullOrEmpty(showMessage))
                 {
                     List<string> list = new List<string>();

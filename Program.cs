@@ -18,8 +18,7 @@ namespace chat2._0
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             IMultimediaManager multimediaManager = MultimediaManagerFactory.GetSingleton();
-            multimediaManager.ChannelMode = OMCS.Passive.ChannelMode.P2PChannelFirst;
-
+            multimediaManager.ChannelMode = OMCS.Passive.ChannelMode.P2PDisabled;
             Application.Run(new login(multimediaManager));
         }
     }
