@@ -1,4 +1,5 @@
-﻿using System;
+﻿using OMCS.Passive;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -16,7 +17,10 @@ namespace chat2._0
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new login());
+            IMultimediaManager multimediaManager = MultimediaManagerFactory.GetSingleton();
+            multimediaManager.ChannelMode = OMCS.Passive.ChannelMode.P2PChannelFirst;
+
+            Application.Run(new login(multimediaManager));
         }
     }
 }

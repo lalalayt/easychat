@@ -17,6 +17,9 @@ using chat2._0.GuiPackage;
 using System.Runtime.InteropServices;
 using System.Media;
 using chat2._0.VideoViewer;
+using OMCS.Passive;
+using chat2._0.ServiceLogicPackage;
+using ESBasic;
 
 namespace chat2._0
 {
@@ -49,6 +52,8 @@ namespace chat2._0
         private Icon normal = new Icon("icon/h.ico");
         private bool _status = true;
         private bool isActive = false;//判断是否执行插入表情事件
+        private IMultimediaManager multimediaManager;//视频多媒体接口
+        private VideoConnection vc;//视频窗口
 
         //消息提醒任务栏图标变亮闪动
         public const UInt32 FLASHW_STOP = 0;
@@ -63,6 +68,8 @@ namespace chat2._0
         [DllImport("user32.dll")]
         static extern bool FlashWindow(IntPtr handle, bool invert);
 
+        public chat() { }
+
         //构造函数
         public chat(string userName)
         {
@@ -71,6 +78,17 @@ namespace chat2._0
             this.userName = userName;
             Expression.Instance.OnSelectExpression += OnSelectExpression;
         }
+
+        public void Initialize(IMultimediaManager mgr)
+        {
+            this.multimediaManager = mgr;
+            this.multimediaManager.CameraDeviceIndex = 0;
+            this.multimediaManager.MicrophoneDeviceIndex = 0;
+            this.multimediaManager.SpeakerIndex = 0;
+            this.multimediaManager.ChannelMode = ChannelMode.P2PChannelFirst;
+            this.multimediaManager.CameraEncodeQuality = 3;
+        }
+
         private void chat_Load(object sender, EventArgs e)
         {
             if (this.WindowState == FormWindowState.Normal)
@@ -737,15 +755,128 @@ namespace chat2._0
             try
             {
                 //打开聊天窗口
-                VideoConnection vc = new VideoConnection(userName, listBox1.SelectedItem.ToString());
+                vc = new VideoConnection(userName, listBox1.SelectedItem.ToString(), multimediaManager);
+                vc.OpenVideoViewer(ViewerType.VideoView, true);
                 vc.Show();
+                //发送请求消息给对方
+                List<string> list = new List<string>();
+                list.Add(listBox1.SelectedItem.ToString());
+                list.Add(InformationTypes.VideoRequest.ToString());
+                dataProcessing.sendData(16, list);
                 toolStripButton2.Enabled = false;
-                //发送请求消息给对方 
 
             }
             catch (Exception ee)
             {
                 MessageBox.Show(ee.Message);
+            }
+        }
+
+        /// <summary>
+        ///  处理消息
+        /// </summary>       
+        public void HandleInformation(string friendName, string informationType)
+        {
+            if (this.InvokeRequired)
+            {
+                this.Invoke(new CbGeneric<string, string>(this.HandleInformation), friendName, informationType);
+            }
+            else
+            {
+                #region //视频请求
+                if (int.Parse(informationType) == InformationTypes.VideoRequest)
+                {
+                    vc = new VideoConnection(userName, friendName, multimediaManager);
+                    if (vc.HaveVideo)
+                    {
+                        return;
+                    }
+                    if (listBox1.SelectedItem.ToString() == friendName)
+                    {
+                        vc.OpenVideoViewer(ViewerType.VideoRequest, false);
+                        vc.Show();
+                        return;
+                    }
+                    else
+                    {
+                        for (int i = 0; i < listBox1.Items.Count; i++)
+                        {
+                            if (listBox1.Items[i].ToString().Trim() == friendName)
+                            {
+                                listBox1.SelectedIndex = i;
+                                vc.OpenVideoViewer(ViewerType.VideoRequest, false);
+                                vc.Show();
+                                return;
+                            }
+                        }
+                    }
+                    toolStripButton2.Enabled = false;
+                }
+                #endregion
+                #region 接受视频
+                if (int.Parse(informationType) == InformationTypes.VideoReceive)
+                {
+                    vc.ConnectVideo();
+                    return;
+                }
+                #endregion
+                #region 拒绝视频
+                if (int.Parse(informationType) == InformationTypes.VideoReject)
+                {
+                    vc.CloseVideoViewer();
+                    if (vc.Disposing || vc.IsDisposed)
+                    {
+                        return;
+                    }
+                    richTextBox1.AppendText("对方拒绝接受视频");
+                    return;
+                }
+                #endregion
+                #region 关闭视频
+                if (int.Parse(informationType) == InformationTypes.CloseVideo)
+                {
+                    if (vc != null)
+                    {
+                        vc.CloseVideoFunction(-1, null);
+                        richTextBox1.SelectionAlignment = HorizontalAlignment.Center;
+                        richTextBox1.AppendText("对方挂断了视频\n");
+                        toolStripButton2.Enabled = true;
+                    }
+                    return;
+                }
+                #endregion  
+                #region 对方网络中断，关闭视频
+                if (int.Parse(informationType) == InformationTypes.NetReasonCloseVideo)
+                {
+                    vc.CloseVideoFunction(-1, null);
+                    richTextBox1.AppendText("网络中断，视频终止");
+                    return;
+                }
+                #endregion
+            }
+        }
+
+        //视频按钮状态
+        public void videoButton()
+        {
+            toolStrip1.BeginInvoke(new Action(() =>
+            {
+                toolStripButton2.Enabled = true;
+            }));
+        }
+
+        //自己挂断视频
+        public void videoClose(string friendName, string message)
+        {
+            if (this.InvokeRequired)
+            {
+                this.Invoke(new CbGeneric<string, string>(this.videoClose), friendName, message);
+            }
+            else
+            {
+                richTextBox1.SelectionAlignment = HorizontalAlignment.Center;
+                richTextBox1.AppendText(message + "\n");
+                toolStripButton2.Enabled = true;
             }
         }
     }

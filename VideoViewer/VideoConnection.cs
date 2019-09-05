@@ -15,13 +15,15 @@ namespace chat2._0.VideoViewer
 {
     public partial class VideoConnection : Form
     {
+        chat c = new chat();
         private object lockObject = new object();
         private bool haveCloseVedio = false;
-        private string userName;//自己的用户名 
-        private string friendName;//
+        private string userName;//自己的用户名
+        private string friendName;//朋友的用户名
         private IMultimediaManager multimediaManager = null;
-        private IViewer currentViewer = null;
+        private VideoViewer videoViewer;
         #region CurrentViewerType
+        private IViewer currentViewer = null;
         public ViewerType CurrentViewerType
         {
             get
@@ -35,15 +37,23 @@ namespace chat2._0.VideoViewer
         }
         #endregion
 
+        #region HaveVideo
         private bool haveVideo = false;
+        public bool HaveVideo
+        {
+            get { return haveVideo; }
+        }
+        #endregion
 
-        public VideoConnection(string userName, string friendName)
+        public VideoConnection() { }
+
+        public VideoConnection(string userName, string friendName, IMultimediaManager _multimediaManager)
         {
 
             InitializeComponent();
             this.userName = userName;
             this.friendName = friendName;
-            OpenVideoViewer(ViewerType.VideoView, true);
+            this.multimediaManager = _multimediaManager;
         }
 
         public void OpenVideoViewer(ViewerType viewerType, bool showWaitingInfo)
@@ -87,7 +97,7 @@ namespace chat2._0.VideoViewer
                         }
                     case ViewerType.VideoView:
                         {
-                            VideoViewer videoViewer = new VideoViewer(userName, friendName, showWaitingInfo, this.multimediaManager);
+                            videoViewer = new VideoViewer(userName, friendName, showWaitingInfo, this.multimediaManager);
                             videoViewer.CloseVideo += new CbGeneric(videoViewer_CloseVideo);
                             videoViewer.OfflineCloseVideo += new CbGeneric(videoViewer_OfflineCloseVideo);
 
@@ -102,14 +112,16 @@ namespace chat2._0.VideoViewer
 
                 }
                 this.haveVideo = true;
-                //this.toolStripButton_video.Enabled = false;
             }
         }
 
         //拒绝视频
         void videoRequestViewer_RejectVideo()
         {
-            //this.rapidEngine.CustomizeOutter.Send(this.friendID, InformationTypes.VideoResult, BitConverter.GetBytes(false));
+            List<string> list = new List<string>();
+            list.Add(friendName);
+            list.Add(InformationTypes.VideoReject.ToString());
+            dataProcessing.sendData(18, list);
             //直接 关闭视频窗，无需通知对方，无需断开 视频连接 等
             this.CloseVideoViewer();
         }
@@ -117,7 +129,10 @@ namespace chat2._0.VideoViewer
         //接受视频
         void videoRequestViewer_ReceiveVideo()
         {
-            //this.rapidEngine.CustomizeOutter.Send(this.friendID, InformationTypes.VideoResult, BitConverter.GetBytes(true), true, ESFramework.ActionTypeOnChannelIsBusy.Continue);
+            List<string> list = new List<string>();
+            list.Add(friendName);
+            list.Add(InformationTypes.VideoReceive.ToString());
+            dataProcessing.sendData(17, list);
             this.OpenVideoViewer(ViewerType.VideoView, false);
             this.ConnectVideo();
         }
@@ -141,7 +156,7 @@ namespace chat2._0.VideoViewer
         /// </summary>      
         void videoViewer_CloseVideo()
         {
-            this.CloseVideoFunction(InformationTypes.CloseVideo, "自己挂断视频");
+            this.CloseVideoFunction(InformationTypes.CloseVideo, "自己挂断了视频");
         }
 
         /// <summary>
@@ -168,7 +183,11 @@ namespace chat2._0.VideoViewer
             {
                 if (informationType > 0)
                 {
-                    //this.rapidEngine.CustomizeOutter.Send(this.friendID, informationType, null, true, ESFramework.ActionTypeOnChannelIsBusy.Continue);
+                    //发送给对方
+                    List<string> list = new List<string>();
+                    list.Add(friendName);
+                    list.Add(informationType.ToString());
+                    dataProcessing.sendData(19, list);
                 }
                 this.CloseVideoViewer();
                 //出动断开 对方到自己的连接
@@ -176,7 +195,9 @@ namespace chat2._0.VideoViewer
 
                 if (!string.IsNullOrEmpty(showMessage))
                 {
-                    //this.textChatControl1.ShowSystemMessage(showMessage);
+                    List<string> list = new List<string>();
+                    list.Add(showMessage);
+                    dataProcessing.sendData(20, list);
                 }
             }
             catch (Exception ee)
@@ -207,9 +228,8 @@ namespace chat2._0.VideoViewer
                     this.haveVideo = false;
                     this.panel_plus.Visible = false;
                     this.Width = this.Width - this.panel_plus.Width >= 400 ? this.Width - this.panel_plus.Width : 400;
-                    //this.toolStripButton_video.Enabled = true;
+                    this.Close();
                 }
-
             }
             catch (Exception ee)
             {

@@ -101,6 +101,30 @@ namespace chat2._0
                 case 15://格式:数据类型21$代码:获取在线用户列表	
                     sendData = num.ToString() + "$" + data[0] + "$";
                     break;
+                //发送视频聊天请求
+                case 16:
+                    sendData = num.ToString() + "$" + myChat.getUserName() + "$" + data[0] + "$" + data[1] + "$";
+                    break;
+                //接受视频
+                case 17:
+                    sendData = num.ToString() + "$" + myChat.getUserName() + "$" + data[0] + "$" + data[1] + "$";
+                    break;
+                //拒绝视频
+                case 18:
+                    sendData = num.ToString() + "$" + myChat.getUserName() + "$" + data[0] + "$" + data[1] + "$";
+                    break;
+                //挂断视频
+                case 19:
+                    sendData = num.ToString() + "$" + myChat.getUserName() + "$" + data[0] + "$" + data[1] + "$";
+                    break;
+                //发送给自己的挂断视频消息
+                case 20:
+                    sendData = num.ToString() + "$" + data[0] + "$";
+                    break;
+                //视频按钮可点击
+                case 21:
+                    sendData = num.ToString() + "$";
+                    break;
                 case 404:
                     sendData = "404$";
                     break;
@@ -180,6 +204,30 @@ namespace chat2._0
                     break;
                 case "12":
                     remind.row(data[1]);
+                    break;
+                //视频聊天请求
+                case "16":
+                    myChat.HandleInformation(data[1], data[3]);
+                    break;
+                //接受视频
+                case "17":
+                    myChat.HandleInformation(data[1], data[3]);
+                    break;
+                //拒绝视频
+                case "18":
+                    myChat.HandleInformation(data[1], data[3]);
+                    break;
+                //挂断视频
+                case "19":
+                    myChat.HandleInformation(data[1], data[3]);
+                    break;
+                //发送给自己的挂断视频消息
+                case "20":
+                    myChat.videoClose(null, data[1]);
+                    break;
+                //视频按钮可点击
+                case "21":
+                    myChat.videoButton();
                     break;
                 case "404":
                     sendData(404, null);
