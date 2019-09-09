@@ -94,15 +94,15 @@ namespace chat2._0
         {
             if (this.WindowState == FormWindowState.Normal)
             {
-                Region = WindowStyle.SetWindowRegion(Width,Height,8);
+                Region = WindowStyle.SetWindowRegion(Width, Height, 8);
             }
             else
             {
                 this.Region = null;
-            }      
+            }
             sendButton = GrayButton;
             chatBuffer = new Dictionary<string, string>();
-            chatBuffer.Add("公共聊天室","");
+            chatBuffer.Add("公共聊天室", "");
             //加载字体
             //路径             
             string path = ".\\myFont.ttf";
@@ -130,11 +130,11 @@ namespace chat2._0
             label3.ForeColor = Color.Red;
             label7.Font = f;
             listBox1.Font = f;
-            label7.Text = "当前用户 : "+userName;
+            label7.Text = "当前用户 : " + userName;
             //调整各个控件位置
             label10.Parent = pictureBox2;
             label6.Parent = panel2;
-            label10.Location = new Point(pictureBox2.Width/2 - label10.Width/2,pictureBox2.Height/2 - label10.Height/2);
+            label10.Location = new Point(pictureBox2.Width / 2 - label10.Width / 2, pictureBox2.Height / 2 - label10.Height / 2);
             label6.Location = new Point(panel2.Width / 2 - label6.Width / 2, panel2.Height / 2 - label6.Height / 2);
             listBox1.SelectedIndex = 0;
             //开始监听端口进行通信
@@ -143,7 +143,7 @@ namespace chat2._0
             dataProcessing.sendData(3, null);
         }
 
-       
+
 
         public string getUserName()
         {
@@ -161,10 +161,10 @@ namespace chat2._0
                     {
                         richTextBox1.BeginInvoke(new Action(() =>
                         {
-                            richTextBox1.AppendText(sendName + "[" + DateTime.Now.ToString() + "]\n"); 
+                            richTextBox1.AppendText(sendName + "[" + DateTime.Now.ToString() + "]\n");
                             richTextBox1.AppendRtf(recMessage);
                             richTextBox1.AppendText("\n");
-                            
+
                         }));
                     }
                     else
@@ -339,7 +339,7 @@ namespace chat2._0
         }
         private void label10_Click(object sender, EventArgs e)
         {
-            pictureBox2_Click(sender,e);
+            pictureBox2_Click(sender, e);
         }
         //==========按钮UI事件==========
         //发送按钮
@@ -389,7 +389,7 @@ namespace chat2._0
         {
             if (e.KeyChar == 13)
             {
-                pictureBox2_Click(sender,e);
+                pictureBox2_Click(sender, e);
             }
         }
         //设置消息框的消息一直处于文本尾
@@ -439,7 +439,7 @@ namespace chat2._0
                     pictureBox2.Image = PinkButton.Images[0];
                     break;
                 default:
-                    break; 
+                    break;
             }
             refreshButton();//刷新按钮样式
         }//设置颜色
@@ -462,7 +462,7 @@ namespace chat2._0
         }
         private void label4_Click(object sender, EventArgs e)
         {
-            dataProcessing.sendData(404,null);
+            dataProcessing.sendData(404, null);
             Application.Exit();
         }
 
@@ -490,13 +490,13 @@ namespace chat2._0
             La_setting.ForeColor = Color.FromArgb(100, 100, 100, 100);
         }
         #endregion
-          
+
         //设置点击时事件
         private void La_setting_MouseClick(object sender, MouseEventArgs e)
         {
             if (e.Button == MouseButtons.Left)
             {
-                Cms_setting.Show(getLocation().X + getSize().X, getLocation().Y+panel1.Bottom);
+                Cms_setting.Show(getLocation().X + getSize().X, getLocation().Y + panel1.Bottom);
             }
         }
         //设置下拉菜单功能
@@ -607,7 +607,7 @@ namespace chat2._0
             }
 
             chatBuffer[label6.Text] = richTextBox1.Rtf + history;
-            
+
             label6.Text = listBox1.SelectedItem.ToString();
             richTextBox1.Rtf = chatBuffer[label6.Text];
             chatBuffer[label6.Text] = "";
@@ -671,7 +671,7 @@ namespace chat2._0
             frmRemind.Show();//显示系统消息窗体
         }
 
-         //接收到消息后任务栏窗体变亮提示客户
+        //接收到消息后任务栏窗体变亮提示客户
         private void messageRemind()
         {
             tmChat.Enabled = true;
@@ -999,6 +999,21 @@ namespace chat2._0
             catch (Exception ee)
             {
                 MessageBox.Show(ee.Message);
+            }
+        }
+
+        /// <summary>
+        /// 接受语音时语音按钮不可点击
+        /// </summary> 
+        public void soundButton()
+        {
+            if (this.InvokeRequired)
+            {
+                this.Invoke(new CbGeneric(this.soundButton));
+            }
+            else
+            {
+                toolStripButton3.Enabled = false;
             }
         }
     }

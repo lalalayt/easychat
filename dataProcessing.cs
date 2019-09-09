@@ -141,6 +141,9 @@ namespace chat2._0
                 case 25:
                     sendData = num.ToString() + "$" + myChat.getUserName() + "$" + data[0] + "$" + data[1] + "$" + data[2] + "$";
                     break;
+                case 26:
+                    sendData = num.ToString() + "$";
+                    break;
                 case 404:
                     sendData = "404$";
                     break;
@@ -260,6 +263,9 @@ namespace chat2._0
                 //挂断语音
                 case "25":
                     myChat.HandleInformation(data[1], data[3], data[4]);
+                    break;
+                case "26":
+                    myChat.soundButton();
                     break;
                 case "404":
                     sendData(404, null);

@@ -29,6 +29,13 @@ namespace chat2._0.Sound
         //接受语音
         private void Receive_Click(object sender, EventArgs e)
         {
+            dataProcessing.sendData(26, null);
+            soundresponse();
+        }
+
+        //发送接受语音回应
+        private void soundresponse()
+        {
             List<string> list = new List<string>();
             list.Add(friendName);
             list.Add(InformationTypes.SoundReceive.ToString());
