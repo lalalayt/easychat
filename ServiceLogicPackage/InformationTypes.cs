@@ -35,5 +35,21 @@ namespace chat2._0.ServiceLogicPackage
         /// 通知好友 网络原因，导致 视频中断 
         /// </summary>
         public const int NetReasonCloseVideo = 5;
+        /// <summary>
+        /// 语音请求 6
+        /// </summary>
+        public const int SoundRequest = 6;
+        /// <summary>
+        /// 接受语音 7
+        /// </summary>
+        public const int SoundReceive = 7;
+        /// <summary>
+        /// 拒绝语音 8
+        /// </summary>
+        public const int SoundReject = 8;
+        /// <summary>
+        /// 通知对方挂断语音连接或通知好友网络原因，导致视频中断 9
+        /// </summary>
+        public const int CloseSound = 9;
     }
 }

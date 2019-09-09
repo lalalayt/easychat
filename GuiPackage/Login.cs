@@ -24,7 +24,7 @@ namespace chat2._0
         private Point formLocation;//窗口位置
         bool isConnect = false;//判断是否连接上服务器
         public chat beginChat;//主界面窗口
-        private IMultimediaManager multimediaManager;//视频多媒体接口
+        private IMultimediaManager multimediaManager;//多媒体接口
 
         public login(IMultimediaManager mgr)
         {

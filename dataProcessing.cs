@@ -121,6 +121,26 @@ namespace chat2._0
                 case 20:
                     sendData = num.ToString() + "$" + myChat.getUserName() + "$" + data[0] + "$";
                     break;
+                //请求语音通话
+                case 21:
+                    sendData = num.ToString() + "$" + myChat.getUserName() + "$" + data[0] + "$" + data[1] + "$";
+                    break;
+                //接受语音
+                case 22:
+                    sendData = num.ToString() + "$" + myChat.getUserName() + "$" + data[0] + "$" + data[1] + "$";
+                    break;
+                //拒绝语音
+                case 23:
+                    sendData = num.ToString() + "$" + myChat.getUserName() + "$" + data[0] + "$" + data[1] + "$";
+                    break;
+                //发送给自己的挂断语音信息
+                case 24:
+                    sendData = num.ToString() + "$" + myChat.getUserName() + "$" + data[0] + "$" + data[1] + "$" + data[2] + "$";
+                    break;
+                //发送给别人的挂断语音信息
+                case 25:
+                    sendData = num.ToString() + "$" + myChat.getUserName() + "$" + data[0] + "$" + data[1] + "$" + data[2] + "$";
+                    break;
                 case 404:
                     sendData = "404$";
                     break;
@@ -203,23 +223,43 @@ namespace chat2._0
                     break;
                 //视频聊天请求
                 case "16":
-                    myChat.HandleInformation(data[1], data[3]);
+                    myChat.HandleInformation(data[1], data[3], null);
                     break;
                 //接受视频
                 case "17":
-                    myChat.HandleInformation(data[1], data[3]);
+                    myChat.HandleInformation(data[1], data[3], null);
                     break;
                 //拒绝视频
                 case "18":
-                    myChat.HandleInformation(data[1], data[3]);
+                    myChat.HandleInformation(data[1], data[3], null);
                     break;
                 //发送给别人的挂断视频消息
                 case "19":
-                    myChat.HandleInformation(null, data[3]);
+                    myChat.HandleInformation(null, data[3], null);
                     break;
                 //发送给自己的挂断视频消息
                 case "20":
                     myChat.videoClose(null, data[2]);
+                    break;
+                //请求语音通话
+                case "21":
+                    myChat.HandleInformation(data[1], data[3], null);
+                    break;
+                //接受语音
+                case "22":
+                    myChat.HandleInformation(data[1], data[3], null);
+                    break;
+                //拒绝语音
+                case "23":
+                    myChat.HandleInformation(data[1], data[3], null);
+                    break;
+                //发送给自己的挂断语音信息
+                case "24":
+                    myChat.HandleInformation(data[1], data[3], data[4]);
+                    break;
+                //挂断语音
+                case "25":
+                    myChat.HandleInformation(data[1], data[3], data[4]);
                     break;
                 case "404":
                     sendData(404, null);

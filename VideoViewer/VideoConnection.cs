@@ -16,7 +16,6 @@ namespace chat2._0.VideoViewer
 {
     public partial class VideoConnection : Form
     {
-        chat c = new chat();
         private object lockObject = new object();
         private bool haveCloseVedio = false;
         private string userName;//自己的用户名

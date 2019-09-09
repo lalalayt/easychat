@@ -138,6 +138,18 @@
     <Compile Include="ServiceLogicPackage\InformationTypes.cs" />
     <Compile Include="ServiceLogicPackage\PublicClass.cs" />
     <Compile Include="ServiceLogicPackage\SendMessage.cs" />
+    <Compile Include="Sound\SoundConnection.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Sound\SoundConnection.Designer.cs">
+      <DependentUpon>SoundConnection.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Sound\SoundRequest.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Sound\SoundRequest.Designer.cs">
+      <DependentUpon>SoundRequest.cs</DependentUpon>
+    </Compile>
     <Compile Include="ViewerType.cs" />
     <Compile Include="ServiceLogicPackage\WindowStyle.cs" />
     <Compile Include="VideoPanel.cs">
@@ -196,6 +208,12 @@
       <SubType>Designer</SubType>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <EmbeddedResource Include="Sound\SoundConnection.resx">
+      <DependentUpon>SoundConnection.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Sound\SoundRequest.resx">
+      <DependentUpon>SoundRequest.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="VideoPanel.resx">
       <DependentUpon>VideoPanel.cs</DependentUpon>
     </EmbeddedResource>
@@ -222,9 +240,12 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.config" />
+    <None Include="App.config">
+      <SubType>Designer</SubType>
+    </None>
   </ItemGroup>
   <ItemGroup>
+    <None Include="Image\true.jpg" />
     <None Include="Image\video.png" />
     <None Include="Image\voice.png" />
     <None Include="Image\e.jpg" />

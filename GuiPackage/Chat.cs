@@ -20,6 +20,7 @@ using chat2._0.VideoViewer;
 using OMCS.Passive;
 using chat2._0.ServiceLogicPackage;
 using ESBasic;
+using chat2._0.Sound;
 
 namespace chat2._0
 {
@@ -54,6 +55,8 @@ namespace chat2._0
         private bool isActive = false;//判断是否执行插入表情事件
         private IMultimediaManager multimediaManager;//视频多媒体接口
         private VideoConnection vc;//视频窗口
+        private SoundConnection sound;//语音窗口
+        private SoundRequest soundRequest;//语音请求窗口
 
         //消息提醒任务栏图标变亮闪动
         public const UInt32 FLASHW_STOP = 0;
@@ -67,8 +70,6 @@ namespace chat2._0
         static extern bool FlashWindowEx(ref FLASHWINFO pwfi);
         [DllImport("user32.dll")]
         static extern bool FlashWindow(IntPtr handle, bool invert);
-
-        public chat() { }
 
         //构造函数
         public chat(string userName)
@@ -588,10 +589,12 @@ namespace chat2._0
             if (listBox1.SelectedItem.ToString().Equals("公共聊天室"))
             {
                 toolStripButton2.Enabled = false;
+                toolStripButton3.Enabled = false;
             }
             else
             {
                 toolStripButton2.Enabled = true;
+                toolStripButton3.Enabled = true;
             }
             string history = "\n--------------------------历史消息--------------------------\n";
             if (label6.Text == listBox1.SelectedItem.ToString())
@@ -754,7 +757,7 @@ namespace chat2._0
         {
             try
             {
-                //打开聊天窗口
+                //打开视频窗口
                 vc = new VideoConnection(userName, listBox1.SelectedItem.ToString(), multimediaManager);
                 vc.OpenVideoViewer(ViewerType.VideoView, true);
                 vc.Show();
@@ -772,17 +775,115 @@ namespace chat2._0
             }
         }
 
+        private string sendRequestName;//发送语音请求的用户名
+        private void listBoxName()
+        {
+            sendRequestName = listBox1.SelectedItem.ToString();
+        }
+
         /// <summary>
         ///  处理消息
         /// </summary>       
-        public void HandleInformation(string friendName, string informationType)
+        public void HandleInformation(string friendName, string informationType, string message)
         {
             if (this.InvokeRequired)
             {
-                this.Invoke(new CbGeneric<string, string>(this.HandleInformation), friendName, informationType);
+                this.Invoke(new CbGeneric<string, string, string>(this.HandleInformation), friendName, informationType, message);
             }
             else
             {
+                #region //语音请求
+                if (int.Parse(informationType) == InformationTypes.SoundRequest)
+                {
+                    sendRequestName = friendName;
+                    if (listBox1.SelectedItem.ToString() == friendName)
+                    {
+                        soundRequest = new SoundRequest(userName, friendName, multimediaManager);
+                        soundRequest.Show();
+                        return;
+                    }
+                    else
+                    {
+                        for (int i = 0; i < listBox1.Items.Count; i++)
+                        {
+                            if (listBox1.Items[i].ToString().Trim() == friendName)
+                            {
+                                listBox1.SelectedIndex = i;
+                                soundRequest = new SoundRequest(userName, friendName, multimediaManager);
+                                soundRequest.Show();
+                                return;
+                            }
+                        }
+                    }
+                }
+                #endregion
+                #region //接受语音
+                if (int.Parse(informationType) == InformationTypes.SoundReceive)
+                {
+                    sound.ConnectSound();
+                    return;
+                }
+                #endregion
+                #region //拒绝语音
+                if (int.Parse(informationType) == InformationTypes.SoundReject)
+                {
+                    sound.Close();
+                    if (sound.Disposing || sound.IsDisposed)
+                    {
+                        richTextBox1.SelectionAlignment = HorizontalAlignment.Center;
+                        richTextBox1.AppendText("对方拒绝接受语音\n");
+                        toolStripButton3.Enabled = true;
+                        return;
+                    }
+                    richTextBox1.SelectionAlignment = HorizontalAlignment.Center;
+                    richTextBox1.AppendText("对方拒绝接受语音\n");
+                    toolStripButton3.Enabled = true;
+                    return;
+                }
+                #endregion
+                #region 关闭语音
+                if (int.Parse(informationType) == InformationTypes.CloseSound)
+                {
+                    if (sound != null)
+                    {
+                        if (friendName != sendRequestName)
+                        {
+                            sound.CloseVideoFunction(int.Parse(informationType), null);
+                            richTextBox1.SelectionAlignment = HorizontalAlignment.Center;
+                            richTextBox1.AppendText(message);
+                            toolStripButton3.Enabled = true;
+                            return;
+                        }
+                        else
+                        {
+                            sound.CloseVideoFunction(-1, null);
+                            richTextBox1.SelectionAlignment = HorizontalAlignment.Center;
+                            richTextBox1.AppendText(message);
+                            toolStripButton3.Enabled = true;
+                            return;
+                        }
+                    }
+                    else
+                    {
+                        if (friendName != sendRequestName)
+                        {
+                            soundRequest.CloseVideoFunction(int.Parse(informationType), null);
+                            richTextBox1.SelectionAlignment = HorizontalAlignment.Center;
+                            richTextBox1.AppendText(message);
+                            toolStripButton3.Enabled = true;
+                            return;
+                        }
+                        else
+                        {
+                            soundRequest.CloseVideoFunction(-1, null);
+                            richTextBox1.SelectionAlignment = HorizontalAlignment.Center;
+                            richTextBox1.AppendText(message);
+                            toolStripButton3.Enabled = true;
+                            return;
+                        }
+                    }
+                }
+                #endregion
                 #region //视频请求
                 if (int.Parse(informationType) == InformationTypes.VideoRequest)
                 {
@@ -810,7 +911,6 @@ namespace chat2._0
                             }
                         }
                     }
-                    toolStripButton2.Enabled = false;
                 }
                 #endregion
                 #region 接受视频
@@ -875,6 +975,30 @@ namespace chat2._0
                 richTextBox1.SelectionAlignment = HorizontalAlignment.Center;
                 richTextBox1.AppendText(message + "\n");
                 toolStripButton2.Enabled = true;
+            }
+        }
+
+        /// <summary>
+        /// 请求语音聊天
+        /// </summary>
+        private void toolStripButton3_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                listBoxName();
+                //打开语音窗口
+                sound = new SoundConnection(userName, listBox1.SelectedItem.ToString(), multimediaManager, true);
+                sound.Show();
+                //发送请求消息给对方
+                List<string> list = new List<string>();
+                list.Add(listBox1.SelectedItem.ToString());
+                list.Add(InformationTypes.SoundRequest.ToString());
+                dataProcessing.sendData(21, list);
+                toolStripButton3.Enabled = false;
+            }
+            catch (Exception ee)
+            {
+                MessageBox.Show(ee.Message);
             }
         }
     }
