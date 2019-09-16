@@ -144,6 +144,26 @@ namespace chat2._0
                 case 26:
                     sendData = num.ToString() + "$";
                     break;
+                //发送文件
+                case 27:
+                    using (FileStream fsRead = new FileStream(data[1], FileMode.Open))
+                    {
+                        //在发送文件前先给好友发送文件的名字+扩展名，方便后面的保存操作
+                        string fileName = Path.GetFileName(data[1]);
+                        string fileExtension = Path.GetExtension(data[1]);
+                        //将文件中的数据读到arrFile数据
+                        byte[] arrFile = new byte[1024 * 1024 * 10];
+                        int length = fsRead.Read(arrFile, 0, arrFile.Length);
+                        sendData = "27$" + myChat.getUserName() + "$" + data[0] + "$" + fileExtension + "$" + myChat.getUserName() + "给你发送的文件为：" + fileName + "$";
+                        byte[] sendMessage = Encoding.Default.GetBytes(sendData);
+                        int size = sendMessage.Length;
+                        byte[] arrFileSend = new byte[length + size];
+                        Buffer.BlockCopy(sendMessage, 0, arrFileSend, 0, size);
+                        //表示发送的是文件数据
+                        Buffer.BlockCopy(arrFile, 0, arrFileSend, size, length);
+                        server.Send(arrFileSend);
+                    }
+                    return true;
                 case 404:
                     sendData = "404$";
                     break;
@@ -152,7 +172,7 @@ namespace chat2._0
             }
             try
             {
-                server.Send(UTF8Encoding.UTF8.GetBytes(sendData));
+                server.Send(Encoding.Default.GetBytes(sendData));
             }
             catch (Exception)
             {
@@ -166,7 +186,7 @@ namespace chat2._0
             string[] data = null;
             if (server == null) return data;
             
-            byte[] receiveByte = new byte[1024*1000];
+            byte[] receiveByte = new byte[1024 * 1024 * 10];
             try
             {
                 server.Receive(receiveByte);
@@ -176,7 +196,7 @@ namespace chat2._0
                 data = null;
                 return data;
             }
-            string receiveString = UTF8Encoding.UTF8.GetString(receiveByte);
+            string receiveString = Encoding.Default.GetString(receiveByte);
             //拆分消息
             data = receiveString.Split('$');
             //选择对应消息种类进行处理
@@ -266,6 +286,14 @@ namespace chat2._0
                     break;
                 case "26":
                     myChat.soundButton();
+                    break;
+                //发送文件消息
+                //case "27":
+                //    myChat.addFileText(data[1], data[2]);
+                //    break;
+                //发送文件
+                case "27":
+                    myChat.receiveFile(data[1], data[3], data[4], receiveByte);
                     break;
                 case "404":
                     sendData(404, null);

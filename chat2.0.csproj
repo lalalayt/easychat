@@ -69,6 +69,9 @@
     <Reference Include="OMCS.Boost">
       <HintPath>dlls\OMCS.Boost.dll</HintPath>
     </Reference>
+    <Reference Include="SanNiuSignal">
+      <HintPath>..\dlls\SanNiuSignal.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.configuration" />
     <Reference Include="System.Core" />

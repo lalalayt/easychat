@@ -68,6 +68,7 @@
             this.toolStripButton2 = new System.Windows.Forms.ToolStripButton();
             this.toolStripButton3 = new System.Windows.Forms.ToolStripButton();
             this.pictureBox2 = new System.Windows.Forms.PictureBox();
+            this.toolStripButton4 = new System.Windows.Forms.ToolStripButton();
             this.panel1.SuspendLayout();
             this.panel3.SuspendLayout();
             this.Cms_setting.SuspendLayout();
@@ -433,10 +434,11 @@
             this.toolStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripButton1,
             this.toolStripButton2,
-            this.toolStripButton3});
+            this.toolStripButton3,
+            this.toolStripButton4});
             this.toolStrip1.Location = new System.Drawing.Point(184, 418);
             this.toolStrip1.Name = "toolStrip1";
-            this.toolStrip1.Size = new System.Drawing.Size(81, 25);
+            this.toolStrip1.Size = new System.Drawing.Size(104, 25);
             this.toolStrip1.TabIndex = 21;
             this.toolStrip1.Text = "toolStrip1";
             // 
@@ -485,6 +487,16 @@
             this.pictureBox2.MouseEnter += new System.EventHandler(this.pictureBox2_MouseEnter);
             this.pictureBox2.MouseLeave += new System.EventHandler(this.pictureBox2_MouseLeave);
             this.pictureBox2.MouseUp += new System.Windows.Forms.MouseEventHandler(this.pictureBox2_MouseUp);
+            // 
+            // toolStripButton4
+            // 
+            this.toolStripButton4.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.toolStripButton4.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton4.Image")));
+            this.toolStripButton4.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripButton4.Name = "toolStripButton4";
+            this.toolStripButton4.Size = new System.Drawing.Size(23, 22);
+            this.toolStripButton4.Text = "toolStripButton4";
+            this.toolStripButton4.Click += new System.EventHandler(this.toolStripButton4_Click);
             // 
             // chat
             // 
@@ -564,5 +576,6 @@
         private System.Windows.Forms.ToolStripButton toolStripButton1;
         private System.Windows.Forms.ToolStripButton toolStripButton2;
         private System.Windows.Forms.ToolStripButton toolStripButton3;
+        private System.Windows.Forms.ToolStripButton toolStripButton4;
     }
 }
