@@ -142,9 +142,6 @@ namespace chat2._0
             //获得在线用户列表
             dataProcessing.sendData(3, null);
         }
-
-
-
         public string getUserName()
         {
             return this.userName;
@@ -179,15 +176,42 @@ namespace chat2._0
                                 richTextBox1.AppendText("\n");
                             }
                         }
-                        //richTextBox2.Rtf = recMessage;
-                        //chatBuffer[location] += sendName + "[" + DateTime.Now.ToString() + "]\n" + recMessage;
-                        //chatBuffer[location] += recMessage;
-                        //chatBuffer[location] += "\n";
-                        //richTextBox2.Text = "";
                     }
                     messageRemind();
                     soundRemind();
                 }));
+        }
+        //添加文件内容
+        public void addFileText(string sendName, string recMessage)
+        {
+            listBox1.BeginInvoke(new Action(() =>
+            {
+                richTextBox1.SelectionAlignment = HorizontalAlignment.Left;
+                if (listBox1.SelectedItem.ToString() == sendName)
+                {
+                    richTextBox1.BeginInvoke(new Action(() =>
+                    {
+                        richTextBox1.AppendText(sendName + "[" + DateTime.Now.ToString() + "]\n");
+                        richTextBox1.AppendText(recMessage);
+                        richTextBox1.AppendText("\n\n");
+                    }));
+                }
+                else
+                {
+                    for (int i = 0; i < listBox1.Items.Count; i++)
+                    {
+                        if (listBox1.Items[i].ToString().Trim() == sendName)
+                        {
+                            listBox1.SelectedIndex = i;
+                            richTextBox1.AppendText(sendName + "[" + DateTime.Now.ToString() + "]\n");
+                            richTextBox1.AppendText(recMessage);
+                            richTextBox1.AppendText("\n\n");
+                        }
+                    }
+                }
+                messageRemind();
+                soundRemind();
+            }));
         }
         //添加在线列表（登录）
         public void addListBox(string s)
@@ -314,19 +338,37 @@ namespace chat2._0
                 }
                 else
                 {
-                    data = new List<string>();
-                    data.Add(listBox1.SelectedItem.ToString());//receiver
-                    data.Add(richTextBox2.Rtf);
-                    if (!dataProcessing.sendData(2, data))//消息类型2:私聊
+                    //发送文件
+                    if (toolStripButton4.Enabled == false)
                     {
-                        MessageBox.Show("发送消息失败");
-                        return;
+                        //获得要发送文件的路径
+                        List<string> list = new List<string>();
+                        list.Add(listBox1.SelectedItem.ToString());
+                        list.Add(richTextBox2.Text.Trim());
+                        dataProcessing.sendData(27, list);
+                        toolStripButton4.Enabled = true;
+                        richTextBox1.SelectionAlignment = HorizontalAlignment.Right;
+                        richTextBox1.AppendText(userName + "[" + DateTime.Now.ToString() + "]\n");
+                        string fileName = Path.GetFileName(richTextBox2.Text);
+                        richTextBox1.AppendText("你发送给" + listBox1.SelectedItem.ToString() + "的文件为：" + fileName);
+                        richTextBox1.AppendText("\n\n");
                     }
-                    richTextBox1.SelectionAlignment = HorizontalAlignment.Right;
-                    richTextBox1.AppendText(userName + "[" + DateTime.Now.ToString() + "]\n");
-                    richTextBox2.SelectionAlignment = HorizontalAlignment.Right;
-                    richTextBox1.SelectedRtf = richTextBox2.Rtf;
-                    richTextBox1.AppendText("\n");
+                    else
+                    {
+                        data = new List<string>();
+                        data.Add(listBox1.SelectedItem.ToString());//receiver
+                        data.Add(richTextBox2.Rtf);
+                        if (!dataProcessing.sendData(2, data))//消息类型2:私聊
+                        {
+                            MessageBox.Show("发送消息失败");
+                            return;
+                        }
+                        richTextBox1.SelectionAlignment = HorizontalAlignment.Right;
+                        richTextBox1.AppendText(userName + "[" + DateTime.Now.ToString() + "]\n");
+                        richTextBox2.SelectionAlignment = HorizontalAlignment.Right;
+                        richTextBox1.SelectedRtf = richTextBox2.Rtf;
+                        richTextBox1.AppendText("\n");
+                    }
                 }
                 richTextBox2.Text = "";
                 isActive = false;
@@ -590,11 +632,13 @@ namespace chat2._0
             {
                 toolStripButton2.Enabled = false;
                 toolStripButton3.Enabled = false;
+                toolStripButton4.Enabled = false;
             }
             else
             {
                 toolStripButton2.Enabled = true;
                 toolStripButton3.Enabled = true;
+                toolStripButton4.Enabled = true;
             }
             string history = "\n--------------------------历史消息--------------------------\n";
             if (label6.Text == listBox1.SelectedItem.ToString())
@@ -739,7 +783,7 @@ namespace chat2._0
             host.Margin = Padding.Empty;
             host.Padding = Padding.Empty;
             popup.Items.Add(host);
-            popup.Show(this, new Point(100, 50));
+            popup.Show(this, new Point(100, 0));
         }
 
         //点击表情将表情插入文本输入框
@@ -1014,6 +1058,50 @@ namespace chat2._0
             else
             {
                 toolStripButton3.Enabled = false;
+            }
+        }
+
+        //选择要发送的文件
+        private void toolStripButton4_Click(object sender, EventArgs e)
+        {
+            OpenFileDialog openFile = new OpenFileDialog();
+            openFile.InitialDirectory = @"C:\Users\DELL\Desktop";
+            openFile.Title = "选择发送的文件";
+            openFile.Filter = "所有文件|*.*";
+            if (openFile.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+            {
+                richTextBox2.Text = openFile.FileName;
+                toolStripButton4.Enabled = false;
+            }
+        }
+
+        //接收发送来的文件
+        public void receiveFile(string sendName, string fileExtension, string fileMessage, byte[] file)
+        {
+            if (this.InvokeRequired)
+            {
+                this.Invoke(new CbGeneric<string, string, string, byte[]>(this.receiveFile), sendName, fileExtension, fileMessage, file);
+            }
+            else
+            {
+                addFileText(sendName, fileMessage);
+                SaveFileDialog sfd = new SaveFileDialog();
+                sfd.Filter = "所有文件|*" + fileExtension;
+                if (sfd.ShowDialog(this) == DialogResult.OK)
+                {
+                    string fileSavePath = sfd.FileName;
+                    using (FileStream fs = new FileStream(fileSavePath, FileMode.Create))
+                    {
+                        int lenth = file.Length;
+                        string sendData = "27$" + sendName + "$" + userName + "$" + fileExtension + "$" + fileMessage + "$";
+                        byte[] sendMessage = Encoding.Default.GetBytes(sendData);
+                        int size = sendMessage.Length;
+                        fs.Write(file, size, lenth - size);
+                        richTextBox1.SelectionAlignment = HorizontalAlignment.Right;
+                        richTextBox1.AppendText(userName + "[" + DateTime.Now.ToString() + "]\n");
+                        richTextBox1.AppendText("文件保存成功：" + fileSavePath + "\n\n");
+                    }
+                }
             }
         }
     }
