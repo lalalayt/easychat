@@ -14,6 +14,7 @@ using System.Security.Cryptography;
 using chat2._0.GuiPackage;
 using OMCS.Passive;
 using System.Configuration;
+using OMCS;
 
 namespace chat2._0
 {
@@ -148,6 +149,7 @@ namespace chat2._0
                 this.Visible = false;
                 try
                 {
+                    GlobalUtil.SetMaxLengthOfUserID(50);
                     this.multimediaManager.Initialize(textBox1.Text, textBox2.Text, ConfigurationManager.AppSettings["OMCSServerIP"], int.Parse(ConfigurationManager.AppSettings["OMCSServerPort"]));
                 }
                 catch (Exception ee)
