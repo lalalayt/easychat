@@ -811,7 +811,7 @@ namespace chat2._0
                 list.Add(InformationTypes.VideoRequest.ToString());
                 dataProcessing.sendData(16, list);
                 toolStripButton2.Enabled = false;
-
+                soundReming();
             }
             catch (Exception ee)
             {
@@ -844,6 +844,7 @@ namespace chat2._0
                     {
                         soundRequest = new SoundRequest(userName, friendName, multimediaManager);
                         soundRequest.Show();
+                        soundReming();
                         return;
                     }
                     else
@@ -855,15 +856,18 @@ namespace chat2._0
                                 listBox1.SelectedIndex = i;
                                 soundRequest = new SoundRequest(userName, friendName, multimediaManager);
                                 soundRequest.Show();
+                                soundReming();
                                 return;
                             }
                         }
                     }
+                    
                 }
                 #endregion
                 #region //接受语音
                 if (int.Parse(informationType) == InformationTypes.SoundReceive)
                 {
+                    axWindowsMediaPlayer1.Ctlcontrols.stop();//停止视频语音聊天
                     sound.ConnectSound();
                     return;
                 }
@@ -871,6 +875,7 @@ namespace chat2._0
                 #region //拒绝语音
                 if (int.Parse(informationType) == InformationTypes.SoundReject)
                 {
+                    axWindowsMediaPlayer1.Ctlcontrols.stop();//停止视频语音聊天
                     sound.Close();
                     if (sound.Disposing || sound.IsDisposed)
                     {
@@ -888,6 +893,7 @@ namespace chat2._0
                 #region 关闭语音
                 if (int.Parse(informationType) == InformationTypes.CloseSound)
                 {
+                    axWindowsMediaPlayer1.Ctlcontrols.stop();
                     if (sound != null)
                     {
                         if (friendName != sendRequestName)
@@ -940,6 +946,7 @@ namespace chat2._0
                     {
                         vc.OpenVideoViewer(ViewerType.VideoRequest, false);
                         vc.Show();
+                        soundReming();
                         return;
                     }
                     else
@@ -951,6 +958,7 @@ namespace chat2._0
                                 listBox1.SelectedIndex = i;
                                 vc.OpenVideoViewer(ViewerType.VideoRequest, false);
                                 vc.Show();
+                                soundReming();
                                 return;
                             }
                         }
@@ -960,6 +968,7 @@ namespace chat2._0
                 #region 接受视频
                 if (int.Parse(informationType) == InformationTypes.VideoReceive)
                 {
+                    axWindowsMediaPlayer1.Ctlcontrols.stop();//停止视频语音聊天
                     vc.ConnectVideo();
                     return;
                 }
@@ -967,6 +976,7 @@ namespace chat2._0
                 #region 拒绝视频
                 if (int.Parse(informationType) == InformationTypes.VideoReject)
                 {
+                    axWindowsMediaPlayer1.Ctlcontrols.stop();//停止视频语音聊天
                     vc.CloseVideoViewer();
                     if (vc.Disposing || vc.IsDisposed)
                     {
@@ -990,6 +1000,7 @@ namespace chat2._0
                         richTextBox1.SelectionAlignment = HorizontalAlignment.Center;
                         richTextBox1.AppendText("对方挂断了视频\n");
                         toolStripButton2.Enabled = true;
+                        axWindowsMediaPlayer1.Ctlcontrols.stop();
                     }
                     return;
                 }
@@ -1001,6 +1012,7 @@ namespace chat2._0
                     richTextBox1.SelectionAlignment = HorizontalAlignment.Center;
                     richTextBox1.AppendText("网络中断，视频终止\n");
                     toolStripButton2.Enabled = true;
+                    axWindowsMediaPlayer1.Ctlcontrols.stop();
                     return;
                 }
                 #endregion
@@ -1016,6 +1028,7 @@ namespace chat2._0
             }
             else
             {
+                axWindowsMediaPlayer1.Ctlcontrols.stop();//停止视频语音聊天
                 richTextBox1.SelectionAlignment = HorizontalAlignment.Center;
                 richTextBox1.AppendText(message + "\n");
                 toolStripButton2.Enabled = true;
@@ -1039,6 +1052,7 @@ namespace chat2._0
                 list.Add(InformationTypes.SoundRequest.ToString());
                 dataProcessing.sendData(21, list);
                 toolStripButton3.Enabled = false;
+                soundReming();
             }
             catch (Exception ee)
             {
@@ -1051,6 +1065,7 @@ namespace chat2._0
         /// </summary> 
         public void soundButton()
         {
+            axWindowsMediaPlayer1.Ctlcontrols.stop();
             if (this.InvokeRequired)
             {
                 this.Invoke(new CbGeneric(this.soundButton));
@@ -1058,6 +1073,33 @@ namespace chat2._0
             else
             {
                 toolStripButton3.Enabled = false;
+            }
+        }
+
+        /// <summary>
+        /// 语音视频来电铃声提示
+        /// </summary>
+        public void soundReming()
+        {
+            WMPLib.IWMPMedia a = axWindowsMediaPlayer1.newMedia("Sound/8910.mp3");
+            axWindowsMediaPlayer1.currentPlaylist.appendItem(a);
+            axWindowsMediaPlayer1.Ctlcontrols.play();//播放
+            axWindowsMediaPlayer1.settings.setMode("loop", true);//循环播放
+        }
+
+        /// <summary>
+        /// 停止音乐视频
+        /// </summary>
+        public void closeMusic()
+        {
+            axWindowsMediaPlayer1.Ctlcontrols.stop();
+            if (this.InvokeRequired)
+            {
+                this.Invoke(new CbGeneric(this.closeMusic));
+            }
+            else
+            {
+                toolStripButton2.Enabled = true;
             }
         }
 

@@ -28,9 +28,12 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(SoundRequest));
             this.Receive = new System.Windows.Forms.Button();
             this.Reject = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
+            this.axWindowsMediaPlayer1 = new AxWMPLib.AxWindowsMediaPlayer();
+            ((System.ComponentModel.ISupportInitialize)(this.axWindowsMediaPlayer1)).BeginInit();
             this.SuspendLayout();
             // 
             // Receive
@@ -62,17 +65,30 @@
             this.label1.TabIndex = 2;
             this.label1.Text = "对方向您放出语音请求";
             // 
+            // axWindowsMediaPlayer1
+            // 
+            this.axWindowsMediaPlayer1.Enabled = true;
+            this.axWindowsMediaPlayer1.Location = new System.Drawing.Point(55, 112);
+            this.axWindowsMediaPlayer1.Name = "axWindowsMediaPlayer1";
+            this.axWindowsMediaPlayer1.OcxState = ((System.Windows.Forms.AxHost.State)(resources.GetObject("axWindowsMediaPlayer1.OcxState")));
+            this.axWindowsMediaPlayer1.Size = new System.Drawing.Size(75, 23);
+            this.axWindowsMediaPlayer1.TabIndex = 3;
+            this.axWindowsMediaPlayer1.Visible = false;
+            // 
             // SoundRequest
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(186, 138);
             this.ControlBox = false;
+            this.Controls.Add(this.axWindowsMediaPlayer1);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.Reject);
             this.Controls.Add(this.Receive);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Name = "SoundRequest";
             this.Text = "语音通话";
+            ((System.ComponentModel.ISupportInitialize)(this.axWindowsMediaPlayer1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -83,5 +99,6 @@
         private System.Windows.Forms.Button Receive;
         private System.Windows.Forms.Button Reject;
         private System.Windows.Forms.Label label1;
+        private AxWMPLib.AxWindowsMediaPlayer axWindowsMediaPlayer1;
     }
 }

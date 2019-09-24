@@ -18,6 +18,9 @@ namespace chat2._0.Sound
         private string userName;//自己的用户名
         private string friendName;//朋友的用户名
         SoundConnection sound;
+
+        public SoundRequest() { }
+
         public SoundRequest(string userName, string friendName, IMultimediaManager _multimediaManager)
         {
             InitializeComponent();
@@ -53,6 +56,7 @@ namespace chat2._0.Sound
             list.Add(friendName);
             list.Add(InformationTypes.SoundReject.ToString());
             dataProcessing.sendData(23, list);
+            dataProcessing.sendData(28, null);
             //直接关闭语音窗，无需通知对方，无需断开语音连接等
             this.Close();
         }

@@ -161,28 +161,28 @@
     <Compile Include="VideoPanel.Designer.cs">
       <DependentUpon>VideoPanel.cs</DependentUpon>
     </Compile>
-    <Compile Include="VideoViewer\FullScreenForm.cs">
+    <Compile Include="VideoViewerFile\FullScreenForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="VideoViewer\FullScreenForm.Designer.cs">
+    <Compile Include="VideoViewerFile\FullScreenForm.Designer.cs">
       <DependentUpon>FullScreenForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="VideoViewer\VideoConnection.cs">
+    <Compile Include="VideoViewerFile\VideoConnection.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="VideoViewer\VideoConnection.Designer.cs">
+    <Compile Include="VideoViewerFile\VideoConnection.Designer.cs">
       <DependentUpon>VideoConnection.cs</DependentUpon>
     </Compile>
-    <Compile Include="VideoViewer\VideoRequestViewer.cs">
+    <Compile Include="VideoViewerFile\VideoRequestViewer.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="VideoViewer\VideoRequestViewer.Designer.cs">
+    <Compile Include="VideoViewerFile\VideoRequestViewer.Designer.cs">
       <DependentUpon>VideoRequestViewer.cs</DependentUpon>
     </Compile>
-    <Compile Include="VideoViewer\VideoViewer.cs">
+    <Compile Include="VideoViewerFile\VideoViewer.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="VideoViewer\VideoViewer.Designer.cs">
+    <Compile Include="VideoViewerFile\VideoViewer.Designer.cs">
       <DependentUpon>VideoViewer.cs</DependentUpon>
     </Compile>
     <EmbeddedResource Include="GuiPackage\AddFriends.resx">
@@ -220,16 +220,16 @@
     <EmbeddedResource Include="VideoPanel.resx">
       <DependentUpon>VideoPanel.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="VideoViewer\FullScreenForm.resx">
+    <EmbeddedResource Include="VideoViewerFile\FullScreenForm.resx">
       <DependentUpon>FullScreenForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="VideoViewer\VideoConnection.resx">
+    <EmbeddedResource Include="VideoViewerFile\VideoConnection.resx">
       <DependentUpon>VideoConnection.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="VideoViewer\VideoRequestViewer.resx">
+    <EmbeddedResource Include="VideoViewerFile\VideoRequestViewer.resx">
       <DependentUpon>VideoRequestViewer.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="VideoViewer\VideoViewer.resx">
+    <EmbeddedResource Include="VideoViewerFile\VideoViewer.resx">
       <DependentUpon>VideoViewer.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="Properties\Settings.settings">
@@ -256,6 +256,43 @@
     <None Include="bin\Debug\Faces\1.gif" />
     <Content Include="Image\head.jpg" />
     <Content Include="Image\search.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <COMReference Include="AxWMPLib">
+      <Guid>{6BF52A50-394A-11D3-B153-00C04F79FAA6}</Guid>
+      <VersionMajor>1</VersionMajor>
+      <VersionMinor>0</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>aximp</WrapperTool>
+      <Isolated>False</Isolated>
+    </COMReference>
+    <COMReference Include="MediaPlayer">
+      <Guid>{22D6F304-B0F6-11D0-94AB-0080C74C7E95}</Guid>
+      <VersionMajor>1</VersionMajor>
+      <VersionMinor>0</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>tlbimp</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
+    <COMReference Include="stdole">
+      <Guid>{00020430-0000-0000-C000-000000000046}</Guid>
+      <VersionMajor>2</VersionMajor>
+      <VersionMinor>0</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>primary</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
+    <COMReference Include="WMPLib">
+      <Guid>{6BF52A50-394A-11D3-B153-00C04F79FAA6}</Guid>
+      <VersionMajor>1</VersionMajor>
+      <VersionMinor>0</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>tlbimp</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
