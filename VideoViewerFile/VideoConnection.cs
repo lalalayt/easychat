@@ -22,6 +22,7 @@ namespace chat2._0.VideoViewer
         private string friendName;//朋友的用户名
         private IMultimediaManager multimediaManager = null;
         private VideoViewer videoViewer;
+
         #region CurrentViewerType
         private IViewer currentViewer = null;
         public ViewerType CurrentViewerType
@@ -122,6 +123,7 @@ namespace chat2._0.VideoViewer
             list.Add(friendName);
             list.Add(InformationTypes.VideoReject.ToString());
             dataProcessing.sendData(18, list);
+            dataProcessing.sendData(28, null);
             //直接 关闭视频窗，无需通知对方，无需断开 视频连接 等
             this.CloseVideoViewer();
         }
@@ -133,6 +135,7 @@ namespace chat2._0.VideoViewer
             list.Add(friendName);
             list.Add(InformationTypes.VideoReceive.ToString());
             dataProcessing.sendData(17, list);
+            dataProcessing.sendData(28, null);
             this.OpenVideoViewer(ViewerType.VideoView, false);
             this.ConnectVideo();
         }
@@ -188,6 +191,7 @@ namespace chat2._0.VideoViewer
                     list.Add(friendName);
                     list.Add(informationType.ToString());
                     dataProcessing.sendData(19, list);
+                    dataProcessing.sendData(28, null);
                 }
                 this.CloseVideoViewer();
                 //出动断开 对方到自己的连接

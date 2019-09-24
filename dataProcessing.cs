@@ -19,7 +19,7 @@ namespace chat2._0
         //连接服务器套接字
         private static Socket server;
         //服务器地址
-        private static IPAddress IP = IPAddress.Parse("192.168.3.25");//服务器地址
+        private static IPAddress IP = IPAddress.Parse("192.168.3.32");//服务器地址
         private static int port = 8081;//服务器端口号
         private static Remind remind = null;//提供一些公共方法
         private static AddFriends myFriend = null;//提供一些公共方法
@@ -164,6 +164,10 @@ namespace chat2._0
                         server.Send(arrFileSend);
                     }
                     return true;
+                //停止视频音乐
+                case 28:
+                    sendData = num.ToString() + "$";
+                    break;
                 case 404:
                     sendData = "404$";
                     break;
@@ -286,6 +290,10 @@ namespace chat2._0
                     break;
                 case "26":
                     myChat.soundButton();
+                    break;
+                //停止视频音乐
+                case "28":
+                    myChat.closeMusic();
                     break;
                 //发送文件消息
                 //case "27":

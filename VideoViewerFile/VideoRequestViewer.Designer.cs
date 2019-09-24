@@ -44,9 +44,6 @@
             // 
             // button_ok
             // 
-            this.button_reject.FlatAppearance.BorderSize = 0;
-            this.button_reject.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
-            this.button_reject.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
             this.button_ok.Location = new System.Drawing.Point(24, 82);
             this.button_ok.Name = "button_ok";
             this.button_ok.Size = new System.Drawing.Size(105, 23);

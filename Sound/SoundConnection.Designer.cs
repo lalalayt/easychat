@@ -83,6 +83,7 @@
             this.Controls.Add(this.channelQualityDisplayer1);
             this.Controls.Add(this.button_close);
             this.Controls.Add(this.label1);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Name = "SoundConnection";
             this.Text = "语音窗口";
             this.ResumeLayout(false);
