@@ -63,7 +63,7 @@ namespace chat2._0
                 //data[0]:receiver    data[1]:消息内容
                 case 2://格式:数据类型2$sender$receiver$消息长度$消息内容$
                     sendData = num.ToString() + "$" + myChat.getUserName() +
-                        "$" + data[0] + "$" + data[1] + "$";
+                        "$" + data[0] + "$" + data[1] + "$" + data[2] + "$";
                     break;
                 //获取在线用户列表
                 //data[0]:代码

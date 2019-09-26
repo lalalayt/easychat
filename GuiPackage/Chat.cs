@@ -358,6 +358,7 @@ namespace chat2._0
                         data = new List<string>();
                         data.Add(listBox1.SelectedItem.ToString());//receiver
                         data.Add(richTextBox2.Rtf);
+                        data.Add(richTextBox2.Text);
                         if (!dataProcessing.sendData(2, data))//消息类型2:私聊
                         {
                             MessageBox.Show("发送消息失败");
