@@ -19,7 +19,7 @@ namespace chat2._0
         //连接服务器套接字
         private static Socket server;
         //服务器地址
-        private static IPAddress IP = IPAddress.Parse("192.168.3.36");//服务器地址
+        private static IPAddress IP = IPAddress.Parse("192.168.3.25");//服务器地址
         private static int port = 8081;//服务器端口号
         private static Remind remind = null;//提供一些公共方法
         private static AddFriends myFriend = null;//提供一些公共方法
