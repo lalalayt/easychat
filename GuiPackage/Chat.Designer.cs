@@ -39,12 +39,11 @@
             this.panel2 = new System.Windows.Forms.Panel();
             this.label6 = new System.Windows.Forms.Label();
             this.panel3 = new System.Windows.Forms.Panel();
+            this.button1 = new System.Windows.Forms.Button();
             this.listBox1 = new System.Windows.Forms.ListBox();
             this.label1 = new System.Windows.Forms.Label();
-            this.richTextBox1 = new System.Windows.Forms.RichTextBox();
-            this.richTextBox2 = new System.Windows.Forms.RichTextBox();
-            this.label8 = new System.Windows.Forms.Label();
-            this.pictureBox2 = new System.Windows.Forms.PictureBox();
+            this.richTextBox1 = new Khendys.Controls.ExRichTextBox();
+            this.richTextBox2 = new Khendys.Controls.ExRichTextBox();
             this.label10 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.GrayButton = new System.Windows.Forms.ImageList(this.components);
@@ -57,10 +56,27 @@
             this.蓝色ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.粉色ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.版本信息ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.add_Friend = new System.Windows.Forms.ToolStripMenuItem();
+            this.tmAddFriend = new System.Windows.Forms.Timer(this.components);
+            this.imageList1 = new System.Windows.Forms.ImageList(this.components);
+            this.notifyIcon1 = new System.Windows.Forms.NotifyIcon(this.components);
+            this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.close = new System.Windows.Forms.ToolStripMenuItem();
+            this.tmChat = new System.Windows.Forms.Timer(this.components);
+            this.toolStrip1 = new System.Windows.Forms.ToolStrip();
+            this.toolStripButton1 = new System.Windows.Forms.ToolStripButton();
+            this.toolStripButton2 = new System.Windows.Forms.ToolStripButton();
+            this.toolStripButton3 = new System.Windows.Forms.ToolStripButton();
+            this.toolStripButton4 = new System.Windows.Forms.ToolStripButton();
+            this.pictureBox2 = new System.Windows.Forms.PictureBox();
+            this.axWindowsMediaPlayer1 = new AxWMPLib.AxWindowsMediaPlayer();
             this.panel1.SuspendLayout();
             this.panel3.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             this.Cms_setting.SuspendLayout();
+            this.contextMenuStrip1.SuspendLayout();
+            this.toolStrip1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.axWindowsMediaPlayer1)).BeginInit();
             this.SuspendLayout();
             // 
             // panel1
@@ -176,7 +192,8 @@
             // 
             // panel3
             // 
-            this.panel3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(228)))), ((int)(((byte)(228)))), ((int)(((byte)(228)))));
+            this.panel3.BackColor = System.Drawing.Color.White;
+            this.panel3.Controls.Add(this.button1);
             this.panel3.Controls.Add(this.listBox1);
             this.panel3.Controls.Add(this.label1);
             this.panel3.Location = new System.Drawing.Point(6, 68);
@@ -184,6 +201,19 @@
             this.panel3.Name = "panel3";
             this.panel3.Size = new System.Drawing.Size(172, 520);
             this.panel3.TabIndex = 2;
+            // 
+            // button1
+            // 
+            this.button1.Enabled = false;
+            this.button1.FlatAppearance.BorderSize = 0;
+            this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.button1.Image = ((System.Drawing.Image)(resources.GetObject("button1.Image")));
+            this.button1.Location = new System.Drawing.Point(128, 8);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(23, 23);
+            this.button1.TabIndex = 8;
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // listBox1
             // 
@@ -218,6 +248,7 @@
             this.richTextBox1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(217)))), ((int)(((byte)(217)))), ((int)(((byte)(217)))));
             this.richTextBox1.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.richTextBox1.Font = new System.Drawing.Font("黑体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.richTextBox1.HiglightColor = Khendys.Controls.RtfColor.White;
             this.richTextBox1.Location = new System.Drawing.Point(184, 104);
             this.richTextBox1.Margin = new System.Windows.Forms.Padding(2);
             this.richTextBox1.Name = "richTextBox1";
@@ -226,6 +257,7 @@
             this.richTextBox1.Size = new System.Drawing.Size(579, 304);
             this.richTextBox1.TabIndex = 20;
             this.richTextBox1.Text = "";
+            this.richTextBox1.TextColor = Khendys.Controls.RtfColor.Black;
             this.richTextBox1.TextChanged += new System.EventHandler(this.richTextBox1_TextChanged);
             // 
             // richTextBox2
@@ -233,6 +265,7 @@
             this.richTextBox2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(217)))), ((int)(((byte)(217)))), ((int)(((byte)(217)))));
             this.richTextBox2.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.richTextBox2.Font = new System.Drawing.Font("黑体", 12F);
+            this.richTextBox2.HiglightColor = Khendys.Controls.RtfColor.White;
             this.richTextBox2.Location = new System.Drawing.Point(184, 445);
             this.richTextBox2.Margin = new System.Windows.Forms.Padding(2);
             this.richTextBox2.MaxLength = 300;
@@ -241,34 +274,9 @@
             this.richTextBox2.Size = new System.Drawing.Size(579, 120);
             this.richTextBox2.TabIndex = 0;
             this.richTextBox2.Text = "";
+            this.richTextBox2.TextColor = Khendys.Controls.RtfColor.Black;
             this.richTextBox2.KeyDown += new System.Windows.Forms.KeyEventHandler(this.richTextBox2_KeyDown);
             this.richTextBox2.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.richTextBox2_KeyPress);
-            // 
-            // label8
-            // 
-            this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(183, 420);
-            this.label8.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(95, 12);
-            this.label8.TabIndex = 7;
-            this.label8.Text = "表情\\文字等功能";
-            // 
-            // pictureBox2
-            // 
-            this.pictureBox2.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox2.Image")));
-            this.pictureBox2.Location = new System.Drawing.Point(667, 519);
-            this.pictureBox2.Margin = new System.Windows.Forms.Padding(2);
-            this.pictureBox2.Name = "pictureBox2";
-            this.pictureBox2.Size = new System.Drawing.Size(88, 40);
-            this.pictureBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.pictureBox2.TabIndex = 9;
-            this.pictureBox2.TabStop = false;
-            this.pictureBox2.Click += new System.EventHandler(this.pictureBox2_Click);
-            this.pictureBox2.MouseDown += new System.Windows.Forms.MouseEventHandler(this.pictureBox2_MouseDown);
-            this.pictureBox2.MouseEnter += new System.EventHandler(this.pictureBox2_MouseEnter);
-            this.pictureBox2.MouseLeave += new System.EventHandler(this.pictureBox2_MouseLeave);
-            this.pictureBox2.MouseUp += new System.Windows.Forms.MouseEventHandler(this.pictureBox2_MouseUp);
             // 
             // label10
             // 
@@ -326,9 +334,10 @@
             this.Cms_setting.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.账号设置ToolStripMenuItem,
             this.皮肤ToolStripMenuItem,
-            this.版本信息ToolStripMenuItem});
+            this.版本信息ToolStripMenuItem,
+            this.add_Friend});
             this.Cms_setting.Name = "Cms_setting";
-            this.Cms_setting.Size = new System.Drawing.Size(125, 70);
+            this.Cms_setting.Size = new System.Drawing.Size(125, 92);
             // 
             // 账号设置ToolStripMenuItem
             // 
@@ -374,17 +383,145 @@
             this.版本信息ToolStripMenuItem.Size = new System.Drawing.Size(124, 22);
             this.版本信息ToolStripMenuItem.Text = "版本信息";
             // 
+            // add_Friend
+            // 
+            this.add_Friend.Name = "add_Friend";
+            this.add_Friend.Size = new System.Drawing.Size(124, 22);
+            this.add_Friend.Text = "添加好友";
+            this.add_Friend.Click += new System.EventHandler(this.add_Friend_Click);
+            // 
+            // tmAddFriend
+            // 
+            this.tmAddFriend.Enabled = true;
+            this.tmAddFriend.Interval = 1000;
+            this.tmAddFriend.Tick += new System.EventHandler(this.tmAddFriend_Tick);
+            // 
+            // imageList1
+            // 
+            this.imageList1.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("imageList1.ImageStream")));
+            this.imageList1.TransparentColor = System.Drawing.Color.Transparent;
+            this.imageList1.Images.SetKeyName(0, "e.jpg");
+            this.imageList1.Images.SetKeyName(1, "h.ico");
+            // 
+            // notifyIcon1
+            // 
+            this.notifyIcon1.ContextMenuStrip = this.contextMenuStrip1;
+            this.notifyIcon1.Icon = ((System.Drawing.Icon)(resources.GetObject("notifyIcon1.Icon")));
+            this.notifyIcon1.Text = "notifyIcon1";
+            this.notifyIcon1.Visible = true;
+            this.notifyIcon1.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.notifyIcon1_MouseDoubleClick);
+            // 
+            // contextMenuStrip1
+            // 
+            this.contextMenuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.close});
+            this.contextMenuStrip1.Name = "contextMenuStrip1";
+            this.contextMenuStrip1.Size = new System.Drawing.Size(101, 26);
+            // 
+            // close
+            // 
+            this.close.Name = "close";
+            this.close.Size = new System.Drawing.Size(100, 22);
+            this.close.Text = "退出";
+            this.close.Click += new System.EventHandler(this.close_Click);
+            // 
+            // tmChat
+            // 
+            this.tmChat.Interval = 500;
+            this.tmChat.Tick += new System.EventHandler(this.tmChat_Tick);
+            // 
+            // toolStrip1
+            // 
+            this.toolStrip1.Dock = System.Windows.Forms.DockStyle.None;
+            this.toolStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.toolStripButton1,
+            this.toolStripButton2,
+            this.toolStripButton3,
+            this.toolStripButton4});
+            this.toolStrip1.Location = new System.Drawing.Point(184, 418);
+            this.toolStrip1.Name = "toolStrip1";
+            this.toolStrip1.Size = new System.Drawing.Size(104, 25);
+            this.toolStrip1.TabIndex = 21;
+            this.toolStrip1.Text = "toolStrip1";
+            // 
+            // toolStripButton1
+            // 
+            this.toolStripButton1.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.toolStripButton1.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton1.Image")));
+            this.toolStripButton1.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripButton1.Name = "toolStripButton1";
+            this.toolStripButton1.Size = new System.Drawing.Size(23, 22);
+            this.toolStripButton1.Text = "toolStripButton1";
+            this.toolStripButton1.Click += new System.EventHandler(this.toolStripButton1_Click);
+            // 
+            // toolStripButton2
+            // 
+            this.toolStripButton2.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.toolStripButton2.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton2.Image")));
+            this.toolStripButton2.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripButton2.Name = "toolStripButton2";
+            this.toolStripButton2.Size = new System.Drawing.Size(23, 22);
+            this.toolStripButton2.Text = "toolStripButton2";
+            this.toolStripButton2.Click += new System.EventHandler(this.toolStripButton2_Click);
+            // 
+            // toolStripButton3
+            // 
+            this.toolStripButton3.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.toolStripButton3.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton3.Image")));
+            this.toolStripButton3.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripButton3.Name = "toolStripButton3";
+            this.toolStripButton3.Size = new System.Drawing.Size(23, 22);
+            this.toolStripButton3.Text = "toolStripButton3";
+            this.toolStripButton3.Click += new System.EventHandler(this.toolStripButton3_Click);
+            // 
+            // toolStripButton4
+            // 
+            this.toolStripButton4.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.toolStripButton4.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton4.Image")));
+            this.toolStripButton4.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripButton4.Name = "toolStripButton4";
+            this.toolStripButton4.Size = new System.Drawing.Size(23, 22);
+            this.toolStripButton4.Text = "toolStripButton4";
+            this.toolStripButton4.Click += new System.EventHandler(this.toolStripButton4_Click);
+            // 
+            // pictureBox2
+            // 
+            this.pictureBox2.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox2.Image")));
+            this.pictureBox2.Location = new System.Drawing.Point(667, 519);
+            this.pictureBox2.Margin = new System.Windows.Forms.Padding(2);
+            this.pictureBox2.Name = "pictureBox2";
+            this.pictureBox2.Size = new System.Drawing.Size(88, 40);
+            this.pictureBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pictureBox2.TabIndex = 9;
+            this.pictureBox2.TabStop = false;
+            this.pictureBox2.Click += new System.EventHandler(this.pictureBox2_Click);
+            this.pictureBox2.MouseDown += new System.Windows.Forms.MouseEventHandler(this.pictureBox2_MouseDown);
+            this.pictureBox2.MouseEnter += new System.EventHandler(this.pictureBox2_MouseEnter);
+            this.pictureBox2.MouseLeave += new System.EventHandler(this.pictureBox2_MouseLeave);
+            this.pictureBox2.MouseUp += new System.Windows.Forms.MouseEventHandler(this.pictureBox2_MouseUp);
+            // 
+            // axWindowsMediaPlayer1
+            // 
+            this.axWindowsMediaPlayer1.Enabled = true;
+            this.axWindowsMediaPlayer1.Location = new System.Drawing.Point(303, 417);
+            this.axWindowsMediaPlayer1.Name = "axWindowsMediaPlayer1";
+            this.axWindowsMediaPlayer1.OcxState = ((System.Windows.Forms.AxHost.State)(resources.GetObject("axWindowsMediaPlayer1.OcxState")));
+            this.axWindowsMediaPlayer1.Size = new System.Drawing.Size(75, 23);
+            this.axWindowsMediaPlayer1.TabIndex = 22;
+            this.axWindowsMediaPlayer1.Visible = false;
+            // 
             // chat
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(238)))), ((int)(((byte)(238)))), ((int)(((byte)(238)))));
             this.ClientSize = new System.Drawing.Size(770, 573);
+            this.Controls.Add(this.axWindowsMediaPlayer1);
+            this.Controls.Add(this.toolStrip1);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label6);
             this.Controls.Add(this.label10);
             this.Controls.Add(this.pictureBox2);
-            this.Controls.Add(this.label8);
             this.Controls.Add(this.richTextBox2);
             this.Controls.Add(this.panel3);
             this.Controls.Add(this.panel2);
@@ -402,8 +539,12 @@
             this.panel1.PerformLayout();
             this.panel3.ResumeLayout(false);
             this.panel3.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
             this.Cms_setting.ResumeLayout(false);
+            this.contextMenuStrip1.ResumeLayout(false);
+            this.toolStrip1.ResumeLayout(false);
+            this.toolStrip1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.axWindowsMediaPlayer1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -414,12 +555,11 @@
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Panel panel2;
         private System.Windows.Forms.Panel panel3;
-        private System.Windows.Forms.RichTextBox richTextBox1;
-        private System.Windows.Forms.RichTextBox richTextBox2;
+        private Khendys.Controls.ExRichTextBox richTextBox1;
+        private Khendys.Controls.ExRichTextBox richTextBox2;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label label6;
-        private System.Windows.Forms.Label label8;
         private System.Windows.Forms.PictureBox pictureBox2;
         private System.Windows.Forms.Label label10;
         private System.Windows.Forms.Label label1;
@@ -438,5 +578,19 @@
         private System.Windows.Forms.ToolStripMenuItem 蓝色ToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem 粉色ToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem 账号设置ToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem add_Friend;
+        private System.Windows.Forms.Timer tmAddFriend;
+        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.ImageList imageList1;
+        private System.Windows.Forms.NotifyIcon notifyIcon1;
+        private System.Windows.Forms.ContextMenuStrip contextMenuStrip1;
+        private System.Windows.Forms.ToolStripMenuItem close;
+        private System.Windows.Forms.Timer tmChat;
+        private System.Windows.Forms.ToolStrip toolStrip1;
+        private System.Windows.Forms.ToolStripButton toolStripButton1;
+        private System.Windows.Forms.ToolStripButton toolStripButton2;
+        private System.Windows.Forms.ToolStripButton toolStripButton3;
+        private System.Windows.Forms.ToolStripButton toolStripButton4;
+        private AxWMPLib.AxWindowsMediaPlayer axWindowsMediaPlayer1;
     }
 }

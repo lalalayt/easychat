@@ -12,6 +12,9 @@ using System.Net;
 using System.Net.Sockets;
 using System.Security.Cryptography;
 using chat2._0.GuiPackage;
+using OMCS.Passive;
+using System.Configuration;
+using OMCS;
 
 namespace chat2._0
 {
@@ -22,10 +25,13 @@ namespace chat2._0
         private Point formLocation;//窗口位置
         bool isConnect = false;//判断是否连接上服务器
         public chat beginChat;//主界面窗口
-        public login()
+        private IMultimediaManager multimediaManager;//多媒体接口
+
+        public login(IMultimediaManager mgr)
         {
             InitializeComponent();
             dataProcessing.setlogin(this);//提供后续数据接收与发送操作反馈结果的操作
+            this.multimediaManager = mgr;
             La_close.Parent = Pb_loginBG;
             La_minimize.Parent = Pb_loginBG;
             La_setting.Parent = Pb_loginBG;
@@ -127,7 +133,7 @@ namespace chat2._0
             //登录时接收到的代码
             if (receiveData[1] == "WRONGPASSWORD")
             {
-                MessageBox.Show("密码错误,请重新输入");
+                MessageBox.Show("账号或密码错误,请重新输入");
                 dataProcessing.beginWork("login");
                 return;
             }
@@ -139,8 +145,20 @@ namespace chat2._0
             //登录成功
             else if (receiveData[1] == "SUCCESS")
             {
+                dataProcessing.loginName = textBox1.Text.Trim();//设置登录的用户名字
                 this.Visible = false;
+                try
+                {
+                    GlobalUtil.SetMaxLengthOfUserID(50);
+                    this.multimediaManager.Initialize(textBox1.Text, textBox2.Text, ConfigurationManager.AppSettings["OMCSServerIP"], int.Parse(ConfigurationManager.AppSettings["OMCSServerPort"]));
+                }
+                catch (Exception ee)
+                {
+                    MessageBox.Show("初始化多媒体设备管理器失败！" + ee.Message);
+                    return;
+                }
                 beginChat = new chat(textBox1.Text.Trim());
+                beginChat.Initialize(multimediaManager);
                 beginChat.Visible = true;
             }
         }
